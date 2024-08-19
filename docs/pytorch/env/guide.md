@@ -2,6 +2,8 @@
 
 不像 sklearn，Pytorch 的安装过程比较复杂，我们甚至需要从挑选合适的版本开始。
 
+如果你不想在本地安装，也可以使用云服务器，比如 AWS、Azure、GCP 等（如果需求较低，可以使用个人轻量级云计算平台，比如[AutoDL](https://www.autodl.com)等），只需要在云服务器上安装 CUDA 以及相应的驱动（一般平台都提供了自动化安装），然后在本地连接云服务器，就可以使用云 GPU 算力进行模型训练与推理。
+
 本章大部分内容参考与图片来源自：[最详细的 Windows 下 PyTorch 入门深度学习环境安装与配置 CPU GPU 版 | 土堆教程 - Bilibili](https://www.bilibili.com/video/BV1S5411X7FY?p=1)。原视频非常详细，本文主要主要进行了简化，如果希望了解更多深层的内容可以观看原视频。
 
 ## \[选读\]为什么要选择不同的版本？
@@ -46,7 +48,7 @@ Pytorch 官方提供了 CPU 与 GPU 两个大类版本，对应了不同的计�
 打开 Anaconda Prompt（使用系统的搜索功能），输入以下命令新建一个环境：
 
 ```shell
-conda create -n pytorch python=3.10.14
+conda create -n pytorch python=3.11
 ```
 
 注：其中的“pytorch”可以替换成你想要的环境名称，python 版本根据实际情况进行调整。

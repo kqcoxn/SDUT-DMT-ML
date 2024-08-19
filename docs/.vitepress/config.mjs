@@ -222,10 +222,10 @@ export default defineConfig({
             },
           ],
         },
-        {
-          text: "完结与致谢",
-          items: [{ text: "完结与致谢", link: "/sklearn/end/thanks" }],
-        },
+        // {
+        //   text: "完结与致谢",
+        //   items: [{ text: "完结与致谢", link: "/sklearn/end/thanks" }],
+        // },
       ],
       "/pytorch/": [
         {
@@ -247,17 +247,94 @@ export default defineConfig({
               text: "[选项2]CPU版Pytorch搭建",
               link: "/pytorch/env/cpu",
             },
-            // {
-            //   text: "[选读]TensorFlow环境搭建",
-            //   link: "/pytorch/env/tensorflow",
-            // },
+          ],
+        },
+        {
+          text: "预备知识",
+          items: [
+            { text: "初识深度学习", link: "/pytorch/dl/synopsis" },
+            { text: "数据操作API", link: "/pytorch/dl/data" },
+            { text: "自动求导与梯度计算", link: "/pytorch/dl/autograd" },
+          ],
+        },
+        {
+          text: "线性神经网络",
+          items: [
+            { text: "再看线性回归", link: "/pytorch/linear/linear" },
+            { text: "Softmax回归", link: "/pytorch/linear/softmax" },
           ],
         },
         {
           text: "深度学习基础",
           items: [
-            { text: "初识深度学习", link: "/pytorch/dl/synopsis" },
-            { text: "后续内容编写中...", link: "/pytorch/dl/building" },
+            { text: "多层感知机", link: "/pytorch/base/perceptron" },
+            { text: "丢弃法", link: "/pytorch/base/dropout" },
+            { text: "数值稳定性", link: "/pytorch/base/numerical" },
+            { text: "神经网络API", link: "/pytorch/base/api" },
+          ],
+        },
+        {
+          text: "卷积神经网络",
+          items: [
+            { text: "卷积层", link: "/pytorch/cnn/conv" },
+            { text: "填充和步幅", link: "/pytorch/cnn/padding" },
+            { text: "多输入输出通道", link: "/pytorch/cnn/channel" },
+            { text: "池化层", link: "/pytorch/cnn/pool" },
+            { text: "经典卷积神经网络LeNet", link: "/pytorch/cnn/lenet" },
+            { text: "AlexNet", link: "/pytorch/cnn/alexnet" },
+            { text: "使用块的网络VGG", link: "/pytorch/cnn/vgg" },
+            { text: "网络中的网络NiN", link: "/pytorch/cnn/nin" },
+            { text: "GoogLeNet", link: "/pytorch/cnn/googlenet" },
+            { text: "批量归一化", link: "/pytorch/cnn/batchnorm" },
+            { text: "残差网络ResNet", link: "/pytorch/cnn/resnet" },
+            { text: "数据增广", link: "/pytorch/cnn/dataaug" },
+            { text: "微调", link: "/pytorch/cnn/finetune" },
+          ],
+        },
+        {
+          text: "[选读]计算机视觉(CV)初步",
+          items: [
+            { text: "物体检测", link: "/pytorch/cv/detection" },
+            { text: "语义分割", link: "/pytorch/cv/segmentation" },
+          ],
+        },
+        {
+          text: "循环神经网络",
+          items: [
+            { text: "序列模型", link: "/pytorch/rnn/seqmodel" },
+            { text: "语言模型", link: "/pytorch/rnn/langmodel" },
+            { text: "循环神经网络RNN", link: "/pytorch/rnn/rnn" },
+            { text: "门控循环单元GRU", link: "/pytorch/rnn/gru" },
+            { text: "长短期记忆网络LSTM", link: "/pytorch/rnn/lstm" },
+            { text: "深层循环神经网络", link: "/pytorch/rnn/deep" },
+            { text: "编码器-解码器架构", link: "/pytorch/rnn/encoder" },
+            { text: "序列到序列学习", link: "/pytorch/rnn/seq2seq" },
+            { text: "束搜索", link: "/pytorch/rnn/beamsearch" },
+          ],
+        },
+        {
+          text: "[选读]注意力机制概述",
+          items: [
+            { text: "注意力机制", link: "/pytorch/attention/synopsis" },
+            { text: "Transformer", link: "/pytorch/attention/transformer" },
+          ],
+        },
+        {
+          text: "[已删除]自然语言处理初步",
+          items: [
+            { text: "[已删除]自然语言处理", link: "/pytorch/nlp/synopsis" },
+          ],
+        },
+        {
+          text: "[选读]优化算法概述",
+          items: [{ text: "常见的优化算法", link: "/pytorch/optim/synopsis" }],
+        },
+        {
+          text: "[选读]高性能计算",
+          items: [
+            { text: "深度学习硬件", link: "/pytorch/hpc/hardware" },
+            { text: "单击多卡并行", link: "/pytorch/hpc/parallel" },
+            { text: "分布式训练", link: "/pytorch/hpc/distributed" },
           ],
         },
       ],
@@ -278,6 +355,17 @@ export default defineConfig({
               text: "📙在线Jupyter(代码/笔记)",
               link: "https://www.kaggle.com/code/kqcoxn/20240802-03-sdut-dmt-ml",
             },
+          ],
+        },
+        {
+          text: "[Soon]SciKit-Learn 先导课",
+          items: [
+            { text: "简介", link: "/exp/sklearnIL/synopsis" },
+            // { text: "讲义", link: "/exp/sklearnIL/handout" },
+            // {
+            //   text: "📙在线Jupyter(代码/笔记)",
+            //   link: "",
+            // },
           ],
         },
       ],

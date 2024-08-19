@@ -14,6 +14,9 @@ hero:
     - theme: brand
       text: 快速上手
       link: /sklearn/synopsis/env
+    - theme: brand
+      text: 先导课
+      link: /exp/sklearnIL/synopsis
     - theme: alt
       text: sklearn入门
       link: /sklearn/synopsis/synopsis
@@ -40,5 +43,5 @@ features:
 ---
 
 <div style="width:100%; text-align:center">
-  <p>SciKit-Learn Documentation v1.0.0_BD by <a href="https://github.com/kqcoxn">kqcoxn/Codax</a> </p>
+  <p>SciKit-Learn Documentation v1.1.0_BD by <a href="https://github.com/kqcoxn">kqcoxn/Codax</a> </p>
 </div>
