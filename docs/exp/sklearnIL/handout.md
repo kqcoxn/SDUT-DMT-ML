@@ -1,8 +1,4 @@
-# 在线讲义
-
-> SciKit-Learn 先导课
-
-![cover](../images/sklearnIL/cover2.png)
+# 完整课程
 
 ## 简介
 
@@ -94,7 +90,7 @@ D:\_Producers\Anaconda3\Library\usr\bin
 
 打开 cmd，在弹出的命令行查看 anaconda 版本，依次输入 ：
 
-```shell
+```shell:line-numbers
 conda --version
 python --version
 ```
@@ -113,7 +109,7 @@ python --version
 
 在命令行输入以下命令：
 
-```shell
+```shell:line-numbers
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
@@ -122,7 +118,7 @@ conda config --set show_channel_urls yes
 
 查看是否修改好通道：
 
-```shell
+```shell:line-numbers
 conda config --show channels
 ```
 
@@ -168,6 +164,23 @@ KNN 算法的流程如下：
 4. 统计前 k 个点所在的类别出现的频率
 5. 返回前 k 个点出现频率最高的类别作为当前点的预测分类
 
+sklearn 中 KNN 算法的 API 如下：
+
+```python
+sklearn.neighbors.KNeighborsClassifier(n_neighbors=3, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski', metric_params=None, n_jobs=None)
+```
+
+其中：
+
+- `n_neighbors`：选择最近邻的数目，默认为 `3`。
+- `weights`：选择样本权重的方法，默认为 `uniform`，即所有样本权重相同。
+- `algorithm`：选择计算最近邻的方法，默认为 `auto`，即自动选择。
+- `leaf_size`：设置叶子节点的大小，默认为 `30`。
+- `p`：选择距离度量的指数，默认为 `2`。
+- `metric`：选择距离度量的方法，默认为 `minkowski`，即闵可夫斯基距离。
+- `metric_params`：设置距离度量的参数，默认为 `None`。
+- `n_jobs`：设置并行计算的线程数，默认为 `None`，即自动选择。
+
 ### 问题分析
 
 假设我们有一组关于鸢尾花的特征数据，包括花萼长度、花萼宽度、花瓣长度、花瓣宽度、类别（山鸢尾、变色鸢尾、维吉尼亚鸢尾）等特征。当有一组新的数据时，我们希望通过这一组的数据预测鸢尾花的类别。
@@ -177,32 +190,24 @@ KNN 算法的流程如下：
 ```python
 from sklearn.datasets import load_iris
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # 导入数据集
 iris = load_iris()
+# print(iris)
 iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
 iris_df['species'] = iris.target
-
 print(iris_df.head())
 ```
 
 输出结果：
 
-```shell
-   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  \
-0                5.1               3.5                1.4               0.2
-1                4.9               3.0                1.4               0.2
-2                4.7               3.2                1.3               0.2
-3                4.6               3.1                1.5               0.2
-4                5.0               3.6                1.4               0.2
-
-   species
-0        0
-1        0
-2        0
-3        0
-4        0
+```shell:line-numbers
+   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  species
+0                5.1               3.5                1.4               0.2        0
+1                4.9               3.0                1.4               0.2        0
+2                4.7               3.2                1.3               0.2        0
+3                4.6               3.1                1.5               0.2        0
+4                5.0               3.6                1.4               0.2        0
 ```
 
 分析：
@@ -215,13 +220,15 @@ print(iris_df.head())
 我们可以绘制一个图形来进一步观察数据的特征：
 
 ```python
-# 绘制散点图
+import matplotlib.pyplot as plt
+
+# 可视化数据集
 plt.figure(figsize=(10, 6))
+plt.xlabel('sepal length (cm)')
+plt.ylabel('sepal width (cm)')
 plt.scatter(iris_df[iris_df['species'] == 0]['sepal length (cm)'], iris_df[iris_df['species'] == 0]['sepal width (cm)'], color='red', label='Setosa')
 plt.scatter(iris_df[iris_df['species'] == 1]['sepal length (cm)'], iris_df[iris_df['species'] == 1]['sepal width (cm)'], color='green', label='Versicolor')
 plt.scatter(iris_df[iris_df['species'] == 2]['sepal length (cm)'], iris_df[iris_df['species'] == 2]['sepal width (cm)'], color='blue', label='Virginica')
-plt.xlabel('Sepal Length (cm)')
-plt.ylabel('Sepal Width (cm)')
 plt.legend()
 plt.title('Iris Dataset - Sepal Length vs Width')
 plt.show()
@@ -243,18 +250,72 @@ plt.show()
 
 具体的切分方法如下：
 
-```python
+::: code-group
+
+```python [sklearn]
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
-
-print(f"Training set size: {X_train.shape}, {y_train.shape}")
-print(f"Test set size: {X_test.shape}, {y_test.shape}")
+# 切分数据集
+x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
 ```
+
+```python [python]
+import numpy as np
+
+# 手动实现数据集划分
+def train_test_split(X, y, test_size=0.3, random_state=None):
+    """
+    将数据集划分为训练集和测试集
+
+    参数:
+    X: 样本特征，形状为 (n_samples, n_features)
+    y: 样本标签，形状为 (n_samples,)
+    test_size: 测试集所占比例，范围为 (0, 1) 之间
+    random_state: 随机种子，确保结果可复现
+
+    返回:
+    X_train, X_test, y_train, y_test: 分别为训练集和测试集的特征和标签
+    """
+
+    # 设置随机种子以确保可复现性
+    if random_state is not None:
+        np.random.seed(random_state)
+
+    # 获取样本数量
+    n_samples = X.shape[0]
+
+    # 计算测试集样本数量
+    n_test_samples = int(n_samples * test_size)
+
+    # 随机打乱索引
+    shuffled_indices = np.random.permutation(n_samples)
+
+    # 划分训练集和测试集的索引
+    test_indices = shuffled_indices[:n_test_samples]
+    train_indices = shuffled_indices[n_test_samples:]
+
+    # 划分训练集和测试集
+    X_train = X[train_indices]
+    X_test = X[test_indices]
+    y_train = y[train_indices]
+    y_test = y[test_indices]
+
+    return X_train, X_test, y_train, y_test
+
+
+# 划分数据集
+x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+```
+
+:::
 
 输出结果：
 
-```shell
+```shell:line-numbers
 Training set size: (105, 4), (105,)
 Test set size: (45, 4), (45,)
 ```
@@ -276,25 +337,83 @@ Test set size: (45, 4), (45,)
 
 具体的标准化方法如下：
 
-```python
+::: code-group
+
+```python [sklearn]
 from sklearn.preprocessing import StandardScaler
 
-# 标准化
+# 数据预处理
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+x_train_scaled = scaler.fit_transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+```
 
-# 对比标准化前后的数据分布
+```python [python]
+# 手动实现标准化
+class MyStandardScaler:
+    def __init__(self):
+        self.mean_ = None
+        self.scale_ = None
+
+    def fit(self, X):
+        """
+        计算并存储数据的均值和标准差
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        self: 返回自身的引用
+        """
+        self.mean_ = np.mean(X, axis=0)
+        self.scale_ = np.std(X, axis=0)
+        return self
+
+    def transform(self, X):
+        """
+        根据存储的均值和标准差对数据进行标准化
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        X_scaled: 标准化后的数据，形状为 (n_samples, n_features)
+        """
+        if self.mean_ is None or self.scale_ is None:
+            raise ValueError("Scaler has not been fitted yet.")
+        X_scaled = (X - self.mean_) / self.scale_
+        return X_scaled
+
+    def fit_transform(self, X):
+        """
+        计算均值和标准差，并对数据进行标准化
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        X_scaled: 标准化后的数据，形状为 (n_samples, n_features)
+        """
+        return self.fit(X).transform(X)
+
+
+# 数据预处理
+scaler = MyStandardScaler()
+x_train_scaled = scaler.fit_transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+```
+
+:::
+
+```python
+# 对比预处理效果（可选）
 plt.figure(figsize=(12, 5))
-
 plt.subplot(1, 2, 1)
-plt.hist(X_train[:, 0], bins=20, color='blue', alpha=0.7)
+plt.hist(x_train[:, 0], bins=20, color='blue', alpha=0.7)
 plt.title('Before Scaling')
-
 plt.subplot(1, 2, 2)
-plt.hist(X_train_scaled[:, 0], bins=20, color='green', alpha=0.7)
+plt.hist(x_train_scaled[:, 0], bins=20, color='green', alpha=0.7)
 plt.title('After Scaling')
-
 plt.show()
 ```
 
@@ -308,25 +427,112 @@ plt.show()
 
 根据我们之前的分析，我们可以选择 KNN 算法作为模型。在实际使用 KNN 模型时，我们一般通过遍历的方法来确定最优的 K 值。
 
-```python
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+::: code-group
 
-# 循环遍历不同k值，训练模型并预测测试集
+```python [sklearn]
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+# 训练模型，循环遍历不同k值，训练模型并预测测试集
 accuracies = []
 k_values = range(1, 11)
 for k in k_values:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(X_train_scaled, y_train)
-    y_pred = knn.predict(X_test_scaled)
-    accuracies.append(accuracy_score(y_test, y_pred))
+    knn.fit(x_train_scaled, y_train)
+    y_pred = knn.predict(x_test_scaled)
+    accuracies.append(accuracy_score(y_test, y_pred))  # 模型的准确率
+print(accuracies)
+```
 
-plt.figure(figsize=(8, 6))
+```python [python]
+# 手动实现 KNN 算法
+class MyKNN:
+    def __init__(self, n_neighbors=3):
+        self.n_neighbors = n_neighbors
+
+    def fit(self, X, y):
+        """
+        训练KNN模型，存储训练数据
+
+        参数:
+        X: 训练样本特征，形状为 (n_samples, n_features)
+        y: 训练样本标签，形状为 (n_samples,)
+
+        返回:
+        self: 返回自身的引用
+        """
+        self.X_train = np.array(X)
+        self.y_train = np.array(y)
+        return self
+
+    def predict(self, X):
+        """
+        使用KNN模型进行预测
+
+        参数:
+        X: 测试样本特征，形状为 (n_samples, n_features)
+
+        返回:
+        y_pred: 预测标签，形状为 (n_samples,)
+        """
+        X = np.array(X)
+        y_pred = np.zeros(X.shape[0])
+
+        for i in range(X.shape[0]):
+            # 计算欧氏距离
+            distances = np.sqrt(np.sum((self.X_train - X[i, :])**2, axis=1))
+            # 找到最近的k个点的索引
+            nearest_neighbors = np.argsort(distances)[:self.n_neighbors]
+            # 找到最近邻的标签
+            nearest_labels = self.y_train[nearest_neighbors]
+            # 投票决定预测标签
+            y_pred[i] = np.argmax(np.bincount(nearest_labels))
+
+        return y_pred
+
+    def score(self, X, y):
+        """
+        计算模型在测试集上的准确率
+
+        参数:
+        X: 测试样本特征，形状为 (n_samples, n_features)
+        y: 测试样本标签，形状为 (n_samples,)
+
+        返回:
+        accuracy: 测试集上的准确率
+        """
+        y_pred = self.predict(X)
+        accuracy = np.mean(y_pred == y)
+        return accuracy
+
+# 训练模型
+accuracies = []
+k_values = range(1, 11)
+for k in k_values:
+    knn = MyKNN(n_neighbors=k)
+    knn.fit(x_train_scaled, y_train)
+    accuracies.append(knn.score(x_test_scaled, y_test))  # 模型的准确率
+print(accuracies)
+```
+
+:::
+
+输出结果：
+
+```shell:line-numbers
+[0.9777777777777777, 0.9777777777777777, 1.0, 0.9777777777777777, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+```
+
+我们可以画一个折线图来展示 K 值与准确率之间的关系：
+
+```python
+# 绘制准确率与k值的关系图（可选）
+plt.figure(figsize=(10, 6))
 plt.plot(k_values, accuracies, marker='o')
-plt.title('K Value vs. Accuracy')
-plt.xlabel('K')
+plt.xlabel('K Value')
 plt.ylabel('Accuracy')
-plt.grid(True)
+plt.title('K Value vs. Accuracy')
+plt.grid()
 plt.show()
 ```
 
@@ -334,20 +540,37 @@ plt.show()
 
 ![](../images/sklearnIL/knn3.png)
 
-由于数据集质量较好，可以看到 KNN 的取值在各个值下都有较好的准确率。不过在 K≥5 时，准确率一直维持在较高水平，因此我们可以选择 K=6 作为最终的模型：
+由于数据集质量较好，可以看到 KNN 的取值在各个值下都有较好的准确率。不过在 `K≥5` 时，准确率一直维持在较高水平，因此我们可以选择 `K=6` 作为最终的模型：
 
-```python
-knn = KNeighborsClassifier(n_neighbors=6)
-knn.fit(X_train_scaled, y_train)
-y_pred = knn.predict(X_test_scaled)
+::: code-group
 
+```python [sklearn]
+# 确定模型
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(x_train_scaled, y_train)
+
+# 预测测试集
+y_pred = knn.predict(x_test_scaled)
 for i in range(5):
     print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
 ```
 
+```python [python]
+# 确定模型
+knn = MyKNN(n_neighbors=5)
+knn.fit(x_train_scaled, y_train)
+
+# 预测测试集
+y_pred = knn.predict(x_test_scaled)
+for i in range(5):
+    print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
+```
+
+:::
+
 输出结果：
 
-```shell
+```shell:line-numbers
 True label: 1, Predicted label: 1
 True label: 0, Predicted label: 0
 True label: 2, Predicted label: 2
@@ -369,28 +592,119 @@ True label: 1, Predicted label: 1
 如果想了解更多关于模型评估的方法，可以查看[分类评估](/sklearn/logistic/evaluation)
 :::
 
-这里我们使用准确率与混淆矩阵对模型进行简单评估：
+这里我们使用准确率、评估报告（包含精确率、召回率、F1 值、支持）与混淆矩阵来进行简单评估：
 
-```python
-import matplotlib.pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay, classification_report, confusion_matrix
+::: code-group
 
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy:.2f}")
+```python [sklearn]
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-print(classification_report(y_test, y_pred))
+# 计算准确率
+accurancy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accurancy:.2f}")
 
+# 计算分类报告
+report = classification_report(y_test, y_pred)
+print(report)
+
+# 计算混淆矩阵
 cm = confusion_matrix(y_test, y_pred)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=iris.target_names)
-
-disp.plot(cmap=plt.cm.Blues)
-plt.title('Confusion Matrix')
-plt.show()
+print(cm)
 ```
+
+```python [python]
+# 手动实现精准率
+def accuracy_score(y_true, y_pred):
+    """
+    计算准确率
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+
+    返回:
+    accuracy: 准确率（浮点数）
+    """
+    correct_predictions = np.sum(y_true == y_pred)
+    accuracy = correct_predictions / len(y_true)
+    return accuracy
+
+
+# 手动实现分类报告
+def classification_report(y_true, y_pred, target_names=None):
+    """
+    计算分类报告，包括精确率、召回率和 F1 分数
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+    target_names: 类别名称列表（可选）
+
+    返回:
+    report: 分类报告字符串
+    """
+    labels = np.unique(y_true)
+    if target_names is None:
+        target_names = [str(label) for label in labels]
+
+    report = "               precision    recall  f1-score   support\n"
+    report += "\n"
+
+    for i, label in enumerate(labels):
+        tp = np.sum((y_true == label) & (y_pred == label))
+        fp = np.sum((y_true != label) & (y_pred == label))
+        fn = np.sum((y_true == label) & (y_pred != label))
+
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+        support = np.sum(y_true == label)
+
+        report += f"{target_names[i]:>15}   {precision:>9.2f}   {recall:>6.2f}   {f1:>8.2f}   {support:>7}\n"
+
+    return report
+
+
+# 手动实现混淆矩阵
+def confusion_matrix(y_true, y_pred):
+    """
+    计算混淆矩阵
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+
+    返回:
+    cm: 混淆矩阵，形状为 (n_classes, n_classes)
+    """
+    labels = np.unique(y_true)
+    cm = np.zeros((len(labels), len(labels)), dtype=int)
+
+    for i, label_true in enumerate(labels):
+        for j, label_pred in enumerate(labels):
+            cm[i, j] = np.sum((y_true == label_true) & (y_pred == label_pred))
+
+    return cm
+
+
+# 计算准确率
+accurancy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accurancy:.2f}")
+
+# 计算分类报告
+report = classification_report(y_test, y_pred)
+print(report)
+
+# 计算混淆矩阵
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+```
+
+:::
 
 输出结果：
 
-```shell
+```shell:line-numbers
 Accuracy: 1.00
               precision    recall  f1-score   support
 
@@ -401,13 +715,521 @@ Accuracy: 1.00
     accuracy                           1.00        45
    macro avg       1.00      1.00      1.00        45
 weighted avg       1.00      1.00      1.00        45
+
+[[19  0  0]
+ [ 0 13  0]
+ [ 0  0 13]]
 ```
+
+可以看到预测结果的准确率、精确率、召回率、F1 值都达到了 `1.0`，说明模型完全拟合测试集。
+
+我们可以绘制一个混淆矩阵图来更直观地展示分类结果：
+
+::: code-group
+
+```python [sklearn]
+from sklearn.metrics import ConfusionMatrixDisplay
+
+# 绘制混淆矩阵热力图（可选）
+cm_display = ConfusionMatrixDisplay(cm, display_labels=iris.target_names)
+cm_display.plot(cmap=plt.cm.Blues)
+plt.title('Confusion Matrix')
+plt.show()
+```
+
+```python [python]
+# 手动实现绘制混淆矩阵热力图
+def plot_confusion_matrix(cm, target_names):
+    """
+    绘制混淆矩阵热力图
+
+    参数:
+    cm: 混淆矩阵，形状为 (n_classes, n_classes)
+    target_names: 类别名称列表
+    """
+    fig, ax = plt.subplots(figsize=(8, 8))
+    cax = ax.matshow(cm, cmap=plt.cm.Blues)
+    plt.title('Confusion Matrix')
+    fig.colorbar(cax)
+
+    # 添加标签
+    ax.set_xticks(np.arange(len(target_names)))
+    ax.set_yticks(np.arange(len(target_names)))
+    ax.set_xticklabels(target_names)
+    ax.set_yticklabels(target_names)
+
+    # 旋转 x 轴标签
+    plt.xticks(rotation=45)
+
+    # 添加文本标签
+    for i in range(len(target_names)):
+        for j in range(len(target_names)):
+            ax.text(j, i, cm[i, j], ha='center', va='center', color='black')
+
+    plt.xlabel('Predicted label')
+    plt.ylabel('True label')
+    plt.show()
+
+
+# 绘制混淆矩阵热力图
+plot_confusion_matrix(cm, iris.target_names)
+```
+
+:::
+
+输出结果：
 
 ![](../images/sklearnIL/knn5.png)
 
-可以看到，准确率为 `1.00`，说明模型预测的结果与实际情况完全一致。
+可以看到预测值与真实值完全吻合。
 
 至此，我们完成了一个简单的 KNN 模型的训练与预测。
+
+### 完整代码
+
+::: code-group
+
+```python:line-numbers [sklearn]
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 导入数据集
+iris = load_iris()
+# print(iris)
+iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
+iris_df['species'] = iris.target
+print(iris_df.head())
+
+# 可视化数据集
+plt.figure(figsize=(10, 6))
+plt.xlabel('sepal length (cm)')
+plt.ylabel('sepal width (cm)')
+plt.scatter(iris_df[iris_df['species'] == 0]['sepal length (cm)'], iris_df[iris_df['species'] == 0]['sepal width (cm)'], color='red', label='Setosa')
+plt.scatter(iris_df[iris_df['species'] == 1]['sepal length (cm)'], iris_df[iris_df['species'] == 1]['sepal width (cm)'], color='green', label='Versicolor')
+plt.scatter(iris_df[iris_df['species'] == 2]['sepal length (cm)'], iris_df[iris_df['species'] == 2]['sepal width (cm)'], color='blue', label='Virginica')
+plt.legend()
+plt.title('Iris Dataset - Sepal Length vs Width')
+plt.show()
+
+# 切分数据集
+x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+
+# 数据预处理
+scaler = StandardScaler()
+x_train_scaled = scaler.fit_transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+
+# 对比预处理效果
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plt.hist(x_train[:, 0], bins=20, color='blue', alpha=0.7)
+plt.title('Before Scaling')
+plt.subplot(1, 2, 2)
+plt.hist(x_train_scaled[:, 0], bins=20, color='green', alpha=0.7)
+plt.title('After Scaling')
+plt.show()
+
+# 训练模型
+accuracies = []
+k_values = range(1, 11)
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(x_train_scaled, y_train)
+    y_pred = knn.predict(x_test_scaled)
+    accuracies.append(accuracy_score(y_test, y_pred))  # 模型的准确率
+print(accuracies)
+
+# 绘制准确率与k值的关系图
+plt.figure(figsize=(10, 6))
+plt.plot(k_values, accuracies, marker='o')
+plt.xlabel('K Value')
+plt.ylabel('Accuracy')
+plt.title('K Value vs. Accuracy')
+plt.grid()
+plt.show()
+
+# 确定模型
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(x_train_scaled, y_train)
+
+# 预测测试集
+y_pred = knn.predict(x_test_scaled)
+for i in range(5):
+    print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
+
+# 计算准确率
+accurancy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accurancy:.2f}")
+
+# 计算分类报告
+report = classification_report(y_test, y_pred)
+print(report)
+
+# 计算混淆矩阵
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+
+# 绘制混淆矩阵热力图
+cm_display = ConfusionMatrixDisplay(cm, display_labels=iris.target_names)
+cm_display.plot(cmap=plt.cm.Blues)
+plt.title('Confusion Matrix')
+plt.show()
+```
+
+```python:line-numbers [python]
+# 为方便展示逻辑连贯性，函数和类的实现按顺序放在了代码中间。按照 Python 代码的习惯，在实际代码中，函数和类的实现应该放在文件开头或单独封装成模块。
+
+from sklearn.datasets import load_iris
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 导入数据集
+iris = load_iris()
+# print(iris)
+iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
+iris_df['species'] = iris.target
+print(iris_df.head())
+
+
+# 可视化数据集
+plt.figure(figsize=(10, 6))
+plt.xlabel('sepal length (cm)')
+plt.ylabel('sepal width (cm)')
+plt.scatter(iris_df[iris_df['species'] == 0]['sepal length (cm)'], iris_df[iris_df['species'] == 0]['sepal width (cm)'], color='red', label='Setosa')
+plt.scatter(iris_df[iris_df['species'] == 1]['sepal length (cm)'], iris_df[iris_df['species'] == 1]['sepal width (cm)'], color='green', label='Versicolor')
+plt.scatter(iris_df[iris_df['species'] == 2]['sepal length (cm)'], iris_df[iris_df['species'] == 2]['sepal width (cm)'], color='blue', label='Virginica')
+plt.legend()
+plt.title('Iris Dataset - Sepal Length vs Width')
+plt.show()
+
+
+# 手动实现数据集划分
+def train_test_split(X, y, test_size=0.3, random_state=None):
+    """
+    将数据集划分为训练集和测试集
+
+    参数:
+    X: 样本特征，形状为 (n_samples, n_features)
+    y: 样本标签，形状为 (n_samples,)
+    test_size: 测试集所占比例，范围为 (0, 1) 之间
+    random_state: 随机种子，确保结果可复现
+
+    返回:
+    X_train, X_test, y_train, y_test: 分别为训练集和测试集的特征和标签
+    """
+
+    # 设置随机种子以确保可复现性
+    if random_state is not None:
+        np.random.seed(random_state)
+
+    # 获取样本数量
+    n_samples = X.shape[0]
+
+    # 计算测试集样本数量
+    n_test_samples = int(n_samples * test_size)
+
+    # 随机打乱索引
+    shuffled_indices = np.random.permutation(n_samples)
+
+    # 划分训练集和测试集的索引
+    test_indices = shuffled_indices[:n_test_samples]
+    train_indices = shuffled_indices[n_test_samples:]
+
+    # 划分训练集和测试集
+    X_train = X[train_indices]
+    X_test = X[test_indices]
+    y_train = y[train_indices]
+    y_test = y[test_indices]
+
+    return X_train, X_test, y_train, y_test
+
+
+# 划分数据集
+x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+
+
+# 手动实现标准化
+class MyStandardScaler:
+    def __init__(self):
+        self.mean_ = None
+        self.scale_ = None
+
+    def fit(self, X):
+        """
+        计算并存储数据的均值和标准差
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        self: 返回自身的引用
+        """
+        self.mean_ = np.mean(X, axis=0)
+        self.scale_ = np.std(X, axis=0)
+        return self
+
+    def transform(self, X):
+        """
+        根据存储的均值和标准差对数据进行标准化
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        X_scaled: 标准化后的数据，形状为 (n_samples, n_features)
+        """
+        if self.mean_ is None or self.scale_ is None:
+            raise ValueError("Scaler has not been fitted yet.")
+        X_scaled = (X - self.mean_) / self.scale_
+        return X_scaled
+
+    def fit_transform(self, X):
+        """
+        计算均值和标准差，并对数据进行标准化
+
+        参数:
+        X: 输入数据，形状为 (n_samples, n_features)
+
+        返回:
+        X_scaled: 标准化后的数据，形状为 (n_samples, n_features)
+        """
+        return self.fit(X).transform(X)
+
+
+# 数据预处理
+scaler = MyStandardScaler()
+x_train_scaled = scaler.fit_transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+
+
+# 手动实现 KNN 算法
+class MyKNN:
+    def __init__(self, n_neighbors=3):
+        self.n_neighbors = n_neighbors
+
+    def fit(self, X, y):
+        """
+        训练KNN模型，存储训练数据
+
+        参数:
+        X: 训练样本特征，形状为 (n_samples, n_features)
+        y: 训练样本标签，形状为 (n_samples,)
+
+        返回:
+        self: 返回自身的引用
+        """
+        self.X_train = np.array(X)
+        self.y_train = np.array(y)
+        return self
+
+    def predict(self, X):
+        """
+        使用KNN模型进行预测
+
+        参数:
+        X: 测试样本特征，形状为 (n_samples, n_features)
+
+        返回:
+        y_pred: 预测标签，形状为 (n_samples,)
+        """
+        X = np.array(X)
+        y_pred = np.zeros(X.shape[0])
+
+        for i in range(X.shape[0]):
+            # 计算欧氏距离
+            distances = np.sqrt(np.sum((self.X_train - X[i, :])**2, axis=1))
+            # 找到最近的k个点的索引
+            nearest_neighbors = np.argsort(distances)[:self.n_neighbors]
+            # 找到最近邻的标签
+            nearest_labels = self.y_train[nearest_neighbors]
+            # 投票决定预测标签
+            y_pred[i] = np.argmax(np.bincount(nearest_labels))
+
+        return y_pred
+
+    def score(self, X, y):
+        """
+        计算模型在测试集上的准确率
+
+        参数:
+        X: 测试样本特征，形状为 (n_samples, n_features)
+        y: 测试样本标签，形状为 (n_samples,)
+
+        返回:
+        accuracy: 测试集上的准确率
+        """
+        y_pred = self.predict(X)
+        accuracy = np.mean(y_pred == y)
+        return accuracy
+
+
+# 训练模型
+accuracies = []
+k_values = range(1, 11)
+for k in k_values:
+    knn = MyKNN(n_neighbors=k)
+    knn.fit(x_train_scaled, y_train)
+    accuracies.append(knn.score(x_test_scaled, y_test))  # 模型的准确率
+print(accuracies)
+
+# 绘制准确率与k值的关系图（可选）
+plt.figure(figsize=(10, 6))
+plt.plot(k_values, accuracies, marker='o')
+plt.xlabel('K Value')
+plt.ylabel('Accuracy')
+plt.title('K Value vs. Accuracy')
+plt.grid()
+plt.show()
+
+# 确定模型
+knn = MyKNN(n_neighbors=5)
+knn.fit(x_train_scaled, y_train)
+
+# 预测测试集
+y_pred = knn.predict(x_test_scaled)
+for i in range(5):
+    print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
+
+
+# 手动实现精准率
+def accuracy_score(y_true, y_pred):
+    """
+    计算准确率
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+
+    返回:
+    accuracy: 准确率（浮点数）
+    """
+    correct_predictions = np.sum(y_true == y_pred)
+    accuracy = correct_predictions / len(y_true)
+    return accuracy
+
+
+# 手动实现分类报告
+def classification_report(y_true, y_pred, target_names=None):
+    """
+    计算分类报告，包括精确率、召回率和 F1 分数
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+    target_names: 类别名称列表（可选）
+
+    返回:
+    report: 分类报告字符串
+    """
+    labels = np.unique(y_true)
+    if target_names is None:
+        target_names = [str(label) for label in labels]
+
+    report = "               precision    recall  f1-score   support\n"
+    report += "\n"
+
+    for i, label in enumerate(labels):
+        tp = np.sum((y_true == label) & (y_pred == label))
+        fp = np.sum((y_true != label) & (y_pred == label))
+        fn = np.sum((y_true == label) & (y_pred != label))
+
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+        support = np.sum(y_true == label)
+
+        report += f"{target_names[i]:>15}   {precision:>9.2f}   {recall:>6.2f}   {f1:>8.2f}   {support:>7}\n"
+
+    return report
+
+
+# 手动实现混淆矩阵
+def confusion_matrix(y_true, y_pred):
+    """
+    计算混淆矩阵
+
+    参数:
+    y_true: 真实标签，形状为 (n_samples,)
+    y_pred: 预测标签，形状为 (n_samples,)
+
+    返回:
+    cm: 混淆矩阵，形状为 (n_classes, n_classes)
+    """
+    labels = np.unique(y_true)
+    cm = np.zeros((len(labels), len(labels)), dtype=int)
+
+    for i, label_true in enumerate(labels):
+        for j, label_pred in enumerate(labels):
+            cm[i, j] = np.sum((y_true == label_true) & (y_pred == label_pred))
+
+    return cm
+
+
+# 计算准确率
+accurancy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accurancy:.2f}")
+
+# 计算分类报告
+report = classification_report(y_test, y_pred)
+print(report)
+
+# 计算混淆矩阵
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+
+
+# 手动实现绘制混淆矩阵热力图
+def plot_confusion_matrix(cm, target_names):
+    """
+    绘制混淆矩阵热力图
+
+    参数:
+    cm: 混淆矩阵，形状为 (n_classes, n_classes)
+    target_names: 类别名称列表
+    """
+    fig, ax = plt.subplots(figsize=(8, 8))
+    cax = ax.matshow(cm, cmap=plt.cm.Blues)
+    plt.title('Confusion Matrix')
+    fig.colorbar(cax)
+
+    # 添加标签
+    ax.set_xticks(np.arange(len(target_names)))
+    ax.set_yticks(np.arange(len(target_names)))
+    ax.set_xticklabels(target_names)
+    ax.set_yticklabels(target_names)
+
+    # 旋转 x 轴标签
+    plt.xticks(rotation=45)
+
+    # 添加文本标签
+    for i in range(len(target_names)):
+        for j in range(len(target_names)):
+            ax.text(j, i, cm[i, j], ha='center', va='center', color='black')
+
+    plt.xlabel('Predicted label')
+    plt.ylabel('True label')
+    plt.show()
+
+
+# 绘制混淆矩阵热力图
+plot_confusion_matrix(cm, iris.target_names)
+```
+
+:::
+
+可以看到，使用 sklearn 可以帮助我们极大的减小代码量，提高效率。
+
+> 如果有兴趣，可以自己尝试实现封装一个 KNN 算法（签到题难度），以加深对于 sklearn 的理解。
 
 ### \[选读\]可视化 KNN
 
@@ -415,7 +1237,7 @@ weighted avg       1.00      1.00      1.00        45
 
 我们可以对某一次预测的过程进行可视化，来更直观地理解 KNN 算法的工作原理：
 
-```python
+```python:line-numbers
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -489,7 +1311,7 @@ plt.show()
 
 案例：[波士顿放假预测](https://www.kaggle.com/c/boston-housing)
 
-```python
+```python:line-numbers
 from sklearn.linear_model import LinearRegression
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
@@ -524,7 +1346,7 @@ print("误差为:\n", error)
 
 某一次的输出：
 
-```shell
+```shell:line-numbers
 预测值为:
  [1.41601135 2.00797685 1.02613188 ... 2.1971023  1.91659415 3.03593177]
 模型中的系数为:

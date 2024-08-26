@@ -30,7 +30,7 @@ hero:
 features:
   - icon: 🔧
     title: 环境搭建
-    details: 提供了Python、Anaconda、sklearn、pytorch等环境的保姆级安装方法，助力快速上手机器学习。
+    details: 提供Python、Anaconda、sklearn、pytorch等环境的保姆级安装方法，助力快速上手机器学习。
   - icon: 📖
     title: sklearn入门
     details: 结合机器学习基础与sklearn API，详细介绍了机器学习的各个模块及其用法。

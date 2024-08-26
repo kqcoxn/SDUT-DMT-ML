@@ -358,10 +358,12 @@ export default defineConfig({
           ],
         },
         {
-          text: "SciKit-Learn 先导课",
+          // text: "SciKit-Learn 先导课",
+          text: "sklearn环境搭建",
           items: [
             { text: "简介", link: "/exp/sklearnIL/synopsis" },
-            { text: "在线讲义", link: "/exp/sklearnIL/handout" },
+            { text: "在线文档", link: "/exp/sklearnIL/env" },
+            { text: "完整课程", link: "/exp/sklearnIL/handout" },
             { text: "📊在线PPT", link: "https://kdocs.cn/l/cdWbNfF9HlSF" },
             {
               text: "📙在线Jupyter(代码/笔记)",
