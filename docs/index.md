@@ -43,5 +43,5 @@ features:
 ---
 
 <div style="width:100%; text-align:center">
-  <p>SciKit-Learn Documentation v1.2.0 by <a href="https://github.com/kqcoxn">kqcoxn/Codax</a> </p>
+  <p>SciKit-Learn Documentation v1.3.1 by <a href="https://github.com/kqcoxn">kqcoxn/Codax</a> </p>
 </div>

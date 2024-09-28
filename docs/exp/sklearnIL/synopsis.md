@@ -10,8 +10,8 @@
 
 - **主讲**：数媒 2102 班 马锦艺
 - **时间**：2024-08-30
-- **方式**：线下课堂 | [在线会议](https://meeting.tencent.com/dm/n5tY3W5WDNC9) | 课程回放（即将上传）
-- **资料**： [安装包](https://www.123pan.com/s/7vwRjv-9dfxv) | [在线文档](../../sklearn/synopsis/synopsis.md)
+- **方式**：线下课堂 | [在线会议](https://meeting.tencent.com/dm/n5tY3W5WDNC9) | [课程回放](https://www.123pan.com/s/7vwRjv-eHfxv.html)
+- **资料**： [安装包](https://www.123pan.com/s/7vwRjv-9dfxv) | [在线文档](./env.md)
 - **预习内容**：[从这里开始你的 ML 与 SciKit-Learn 学习之旅！](../../sklearn/synopsis/synopsis.md)
 
 ## 适用人群

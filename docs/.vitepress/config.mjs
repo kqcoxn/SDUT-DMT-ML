@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import { SearchPlugin } from "vitepress-plugin-search";
 
 export default defineConfig({
   title: "Machine Learning",
@@ -7,28 +8,16 @@ export default defineConfig({
 
   lang: "zh-CN",
   base: "/ml/",
-  search: {
-    provider: "local",
-    options: {
-      translations: {
-        button: {
-          buttonText: "搜索文档",
-          buttonAriaLabel: "搜索文档",
-        },
-        modal: {
-          noResultsText: "无法找到相关结果",
-          resetButtonTitle: "清除查询条件",
-          footer: {
-            selectText: "选择",
-            navigateText: "切换",
-          },
-        },
-      },
-    },
-  },
   markdown: {
     math: true,
   },
+
+  plugins: [
+    SearchPlugin({
+      encode: false,
+      tokenize: "full",
+    }),
+  ],
 
   head: [
     ["link", { rel: "icon", href: "/sklearn/logo.png" }],
@@ -352,7 +341,7 @@ export default defineConfig({
             { text: "机器学习基础知识", link: "/exp/SCForDMT/ml" },
             { text: "课后习题", link: "/exp/SCForDMT/homework" },
             {
-              text: "📙在线Jupyter(代码/笔记)",
+              text: "📙在线Jupyter(笔记/代码)",
               link: "https://www.kaggle.com/code/kqcoxn/20240802-03-sdut-dmt-ml",
             },
           ],
@@ -366,8 +355,26 @@ export default defineConfig({
             { text: "完整课程", link: "/exp/sklearnIL/handout" },
             { text: "📊在线PPT", link: "https://kdocs.cn/l/cdWbNfF9HlSF" },
             {
-              text: "📙在线Jupyter(代码/笔记)",
+              text: "📙在线Jupyter(讲义/代码)",
               link: "https://www.kaggle.com/code/kqcoxn/sdut-dmt-ml-scikit-learn-il",
+            },
+          ],
+        },
+        {
+          text: "实验一：回归预测",
+          items: [
+            { text: "简介", link: "/exp/regression/synopsis" },
+            {
+              text: "项目一：预测患者糖尿病病情",
+              link: "/exp/regression/proj_1",
+            },
+            {
+              text: "项目五：股票价格走势预测",
+              link: "/exp/regression/proj_5",
+            },
+            {
+              text: "📙在线Jupyter(思路/代码)",
+              link: "https://www.kaggle.com/code/kqcoxn/sdut-dmt-ml-scikit-learn-e1p1",
             },
           ],
         },

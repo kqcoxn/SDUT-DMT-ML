@@ -74,7 +74,7 @@ Scikit-learn（通常简称为 sklearn）是一个用于 Python 的**机器学�
 
 输入下面的五个环境变量。（**这里不是完全一样的！你需要将以下五条环境变量中涉及的到的"D:\\\_Producers\Anaconda3"都修改为你的 Anaconda 的安装路径！**）
 
-```
+```:line-numbers
 D:\_Producers\Anaconda3
 D:\_Producers\Anaconda3\Scripts
 D:\_Producers\Anaconda3\Library\bin
@@ -240,86 +240,6 @@ plt.show()
 
 从图中我们可以看出，**相同种类的鸢尾花其特征数据之间的距离较近**，而不同种类的鸢尾花，其特征数据之间的距离较远。因此，KNN 算法是一种可能解决此问题的有效方案。
 
-### 训练集和测试集
-
-机器学习是从数据的属性中学习，并将它们应用到新数据的过程。 这就是为什么机器学习中评估算法的普遍实践是把数据分割成 **训练集** （我们从中学习数据的属性）和 **测试集** （我们测试这些性质）。在这里，我们简单把数据集按 `7:3` 切分为训练集和测试集。
-
-::: tip
-如果你想了解更多关于数据集、拟合、误差等知识，可以查看[拆分原始训练集](/sklearn/skills/resolution)
-:::
-
-具体的切分方法如下：
-
-::: code-group
-
-```python [sklearn]
-from sklearn.model_selection import train_test_split
-
-# 切分数据集
-x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
-print(f"Training set size: {x_train.shape}, {y_train.shape}")
-print(f"Testing set size: {x_test.shape}, {y_test.shape}")
-```
-
-```python [python]
-import numpy as np
-
-# 手动实现数据集划分
-def train_test_split(X, y, test_size=0.3, random_state=None):
-    """
-    将数据集划分为训练集和测试集
-
-    参数:
-    X: 样本特征，形状为 (n_samples, n_features)
-    y: 样本标签，形状为 (n_samples,)
-    test_size: 测试集所占比例，范围为 (0, 1) 之间
-    random_state: 随机种子，确保结果可复现
-
-    返回:
-    X_train, X_test, y_train, y_test: 分别为训练集和测试集的特征和标签
-    """
-
-    # 设置随机种子以确保可复现性
-    if random_state is not None:
-        np.random.seed(random_state)
-
-    # 获取样本数量
-    n_samples = X.shape[0]
-
-    # 计算测试集样本数量
-    n_test_samples = int(n_samples * test_size)
-
-    # 随机打乱索引
-    shuffled_indices = np.random.permutation(n_samples)
-
-    # 划分训练集和测试集的索引
-    test_indices = shuffled_indices[:n_test_samples]
-    train_indices = shuffled_indices[n_test_samples:]
-
-    # 划分训练集和测试集
-    X_train = X[train_indices]
-    X_test = X[test_indices]
-    y_train = y[train_indices]
-    y_test = y[test_indices]
-
-    return X_train, X_test, y_train, y_test
-
-
-# 划分数据集
-x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
-print(f"Training set size: {x_train.shape}, {y_train.shape}")
-print(f"Testing set size: {x_test.shape}, {y_test.shape}")
-```
-
-:::
-
-输出结果：
-
-```shell:line-numbers
-Training set size: (105, 4), (105,)
-Test set size: (45, 4), (45,)
-```
-
 ### 数据预处理
 
 通常我们获得的数据都是不完美的，需要进行数据预处理，一般使用以下方法：
@@ -344,8 +264,7 @@ from sklearn.preprocessing import StandardScaler
 
 # 数据预处理
 scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_test_scaled = scaler.transform(x_test)
+x = scaler.fit_transform(iris.data)
 ```
 
 ```python [python]
@@ -398,9 +317,8 @@ class MyStandardScaler:
 
 
 # 数据预处理
-scaler = MyStandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_test_scaled = scaler.transform(x_test)
+scaler = StandardScaler()
+x = scaler.fit_transform(iris.data)
 ```
 
 :::
@@ -409,10 +327,10 @@ x_test_scaled = scaler.transform(x_test)
 # 对比预处理效果（可选）
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
-plt.hist(x_train[:, 0], bins=20, color='blue', alpha=0.7)
+plt.hist(iris.data[:, 0], bins=20, color='blue', alpha=0.7)
 plt.title('Before Scaling')
 plt.subplot(1, 2, 2)
-plt.hist(x_train_scaled[:, 0], bins=20, color='green', alpha=0.7)
+plt.hist(x[:, 0], bins=20, color='green', alpha=0.7)
 plt.title('After Scaling')
 plt.show()
 ```
@@ -422,6 +340,86 @@ plt.show()
 ![](../images/sklearnIL/knn2.png)
 
 从图中我们可以看出，**数据标准化** 使得数据分布变得更加均匀，更容易被模型识别。（虽然本案例中的原始数据集已经够匀称了）
+
+### 划分数据集
+
+机器学习是从数据的属性中学习，并将它们应用到新数据的过程。 这就是为什么机器学习中评估算法的普遍实践是把数据分割成 **训练集** （我们从中学习数据的属性）和 **测试集** （我们测试这些性质）。在这里，我们简单把数据集按 `7:3` 切分为训练集和测试集。
+
+::: tip
+如果你想了解更多关于数据集、拟合、误差等知识，可以查看[拆分原始训练集](/sklearn/skills/resolution)
+:::
+
+具体的切分方法如下：
+
+::: code-group
+
+```python [sklearn]
+from sklearn.model_selection import train_test_split
+
+# 切分数据集
+x_train, x_test, y_train, y_test = train_test_split(x, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+```
+
+```python [python]
+import numpy as np
+
+# 手动实现数据集划分
+def train_test_split(X, y, test_size=0.3, random_state=None):
+    """
+    将数据集划分为训练集和测试集
+
+    参数:
+    X: 样本特征，形状为 (n_samples, n_features)
+    y: 样本标签，形状为 (n_samples,)
+    test_size: 测试集所占比例，范围为 (0, 1) 之间
+    random_state: 随机种子，确保结果可复现
+
+    返回:
+    X_train, X_test, y_train, y_test: 分别为训练集和测试集的特征和标签
+    """
+
+    # 设置随机种子以确保可复现性
+    if random_state is not None:
+        np.random.seed(random_state)
+
+    # 获取样本数量
+    n_samples = X.shape[0]
+
+    # 计算测试集样本数量
+    n_test_samples = int(n_samples * test_size)
+
+    # 随机打乱索引
+    shuffled_indices = np.random.permutation(n_samples)
+
+    # 划分训练集和测试集的索引
+    test_indices = shuffled_indices[:n_test_samples]
+    train_indices = shuffled_indices[n_test_samples:]
+
+    # 划分训练集和测试集
+    X_train = X[train_indices]
+    X_test = X[test_indices]
+    y_train = y[train_indices]
+    y_test = y[test_indices]
+
+    return X_train, X_test, y_train, y_test
+
+
+# 划分数据集
+x_train, x_test, y_train, y_test = train_test_split(x, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+```
+
+:::
+
+输出结果：
+
+```shell:line-numbers
+Training set size: (105, 4), (105,)
+Test set size: (45, 4), (45,)
+```
 
 ### 训练与预测
 
@@ -438,8 +436,8 @@ accuracies = []
 k_values = range(1, 11)
 for k in k_values:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(x_train_scaled, y_train)
-    y_pred = knn.predict(x_test_scaled)
+    knn.fit(x_train, y_train)
+    y_pred = knn.predict(x_test)
     accuracies.append(accuracy_score(y_test, y_pred))  # 模型的准确率
 print(accuracies)
 ```
@@ -510,8 +508,8 @@ accuracies = []
 k_values = range(1, 11)
 for k in k_values:
     knn = MyKNN(n_neighbors=k)
-    knn.fit(x_train_scaled, y_train)
-    accuracies.append(knn.score(x_test_scaled, y_test))  # 模型的准确率
+    knn.fit(x_train, y_train)
+    accuracies.append(knn.score(x_test, y_test))  # 模型的准确率
 print(accuracies)
 ```
 
@@ -547,10 +545,10 @@ plt.show()
 ```python [sklearn]
 # 确定模型
 knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(x_train_scaled, y_train)
+knn.fit(x_train, y_train)
 
 # 预测测试集
-y_pred = knn.predict(x_test_scaled)
+y_pred = knn.predict(x_test)
 for i in range(5):
     print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
 ```
@@ -558,10 +556,10 @@ for i in range(5):
 ```python [python]
 # 确定模型
 knn = MyKNN(n_neighbors=5)
-knn.fit(x_train_scaled, y_train)
+knn.fit(x_train, y_train)
 
 # 预测测试集
-y_pred = knn.predict(x_test_scaled)
+y_pred = knn.predict(x_test)
 for i in range(5):
     print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
 ```
@@ -816,33 +814,32 @@ plt.legend()
 plt.title('Iris Dataset - Sepal Length vs Width')
 plt.show()
 
-# 切分数据集
-x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3, random_state=42)
-print(f"Training set size: {x_train.shape}, {y_train.shape}")
-print(f"Testing set size: {x_test.shape}, {y_test.shape}")
-
 # 数据预处理
 scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_test_scaled = scaler.transform(x_test)
+x = scaler.fit_transform(iris.data)
 
 # 对比预处理效果
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
-plt.hist(x_train[:, 0], bins=20, color='blue', alpha=0.7)
+plt.hist(iris.data[:, 0], bins=20, color='blue', alpha=0.7)
 plt.title('Before Scaling')
 plt.subplot(1, 2, 2)
-plt.hist(x_train_scaled[:, 0], bins=20, color='green', alpha=0.7)
+plt.hist(x[:, 0], bins=20, color='green', alpha=0.7)
 plt.title('After Scaling')
 plt.show()
+
+# 切分数据集
+x_train, x_test, y_train, y_test = train_test_split(x, iris.target, test_size=0.3, random_state=42)
+print(f"Training set size: {x_train.shape}, {y_train.shape}")
+print(f"Testing set size: {x_test.shape}, {y_test.shape}")
 
 # 训练模型
 accuracies = []
 k_values = range(1, 11)
 for k in k_values:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(x_train_scaled, y_train)
-    y_pred = knn.predict(x_test_scaled)
+    knn.fit(x_train, y_train)
+    y_pred = knn.predict(x_test)
     accuracies.append(accuracy_score(y_test, y_pred))  # 模型的准确率
 print(accuracies)
 
@@ -857,10 +854,10 @@ plt.show()
 
 # 确定模型
 knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(x_train_scaled, y_train)
+knn.fit(x_train, y_train)
 
 # 预测测试集
-y_pred = knn.predict(x_test_scaled)
+y_pred = knn.predict(x_test)
 for i in range(5):
     print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
 
@@ -885,7 +882,6 @@ plt.show()
 
 ```python:line-numbers [python]
 # 为方便展示逻辑连贯性，函数和类的实现按顺序放在了代码中间。按照 Python 代码的习惯，在实际代码中，函数和类的实现应该放在文件开头或单独封装成模块。
-
 from sklearn.datasets import load_iris
 import pandas as pd
 import matplotlib.pyplot as plt
