@@ -12,9 +12,9 @@ K Nearest Neighbor 算法又叫 KNN 算法，这个算法是机器学习里面�
 
 两个样本的距离可以通过如下公式计算，又叫欧式距离 ，关于距离公式会在后面进行讨论：
 
-![image](../images/knn/欧式距离1.png)
+![](../images/knn/欧式距离1.png)
 
-![image](../images/knn/欧式距离2.png)
+![](../images/knn/欧式距离2.png)
 
 ## KNN 算法流程
 

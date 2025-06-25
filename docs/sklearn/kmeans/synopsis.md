@@ -13,11 +13,11 @@ K-means 算法是一种**无监督学习**、**聚类**算法。
 
 我们可以通过下图解释实现流程：
 
-![image](../images/kmeans/K-means过程分析.png)
+![](../images/kmeans/K-means过程分析.png)
 
 简单来说，就是将数据集分为 K 个簇，然后将数据集中的每个点分配到距离最近的 K 个簇中，然后重新计算 K 个簇的中心点，直到中心点不再移动为止。
 
-![image](../images/kmeans/kmeans_dynamic.png)
+![](../images/kmeans/kmeans_dynamic.png)
 
 从实现上就是这么简单。在原理方面，K-means 仍然利用了损失与优化的思想，即寻找使得损失函数最小的解。损失函数一般采用平方误差函数，即将每个点到其所属的簇的中心点的距离的平方和，我们将在后面的小节详细介绍。
 
@@ -27,30 +27,30 @@ K-means 算法是一种**无监督学习**、**聚类**算法。
 
 下面我们模拟一个详细的聚类场景：
 
-![image](../images/kmeans/kmeans_demo1.png)
+![](../images/kmeans/kmeans_demo1.png)
 
 如图所示，我们有 15 组数据，每个数据包含 X 与 Y 值，我们希望这 15 组数据可以划分为 2 类，下面我们手动走一下 K-means 算法的步骤：
 
 1.随机设置 2 个特征空间内的点作为初始的聚类中心（本案例中设置 p1 和 p2）
 
-![image](../images/kmeans/kmeans_demo2.png)
+![](../images/kmeans/kmeans_demo2.png)
 
 2.对于其他每个点计算到 K 个中心的距离，未知的点选择最近的一个聚类中心点作为标记类别
 
-![image](../images/kmeans/kmeans_demo3.png)
+![](../images/kmeans/kmeans_demo3.png)
 
-![image](../images/kmeans/kmeans_demo4.png)
+![](../images/kmeans/kmeans_demo4.png)
 
 3.接着对着标记的聚类中心之后，重新计算出每个聚类的新中心点（平均值）
 
-![image](../images/kmeans/kmeans_demo5.png)
+![](../images/kmeans/kmeans_demo5.png)
 
 4.如果计算得出的新中心点与原中心点一样（质心不再移动），那么结束，否则重新进行第二步过程【经过判断，需要重复上述步骤，开始新一轮迭代】
 
-![image](../images/kmeans/kmeans_demo6.png)
+![](../images/kmeans/kmeans_demo6.png)
 
-![image](../images/kmeans/kmeans_demo7.png)
+![](../images/kmeans/kmeans_demo7.png)
 
 5.当每次迭代结果不变时，认为算法收敛，聚类完成，K-Means 一定会停下，不可能陷入一直选质心的过程。
 
-![image](../images/kmeans/kmeans_demo8.png)
+![](../images/kmeans/kmeans_demo8.png)

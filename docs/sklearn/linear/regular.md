@@ -4,11 +4,11 @@
 
 岭回归是线性回归的正则化版本，即在原来的线性回归的 cost function 中添加正则项（regularization term）:
 
-![image](../images/linear/岭回归模型1.png)
+![](../images/linear/岭回归模型1.png)
 
 以达到在拟合数据的同时，使模型权重尽可能小的目的,岭回归代价函数:
 
-![image](../images/linear/岭回归模型2.png)
+![](../images/linear/岭回归模型2.png)
 
 α=0：岭回归退化为线性回归
 
@@ -18,7 +18,7 @@ Lasso 回归是线性回归的另一种正则化版本，正则项为权值向�
 
 Lasso 回归的代价函数 ：
 
-![image](../images/linear/lasso回归1.png)
+![](../images/linear/lasso回归1.png)
 
 Lasso Regression 有一个很重要的性质是：倾向于完全消除不重要的权重。
 
@@ -34,7 +34,7 @@ r=0：弹性网络变为岭回归
 r=1：弹性网络便为 Lasso 回归
 弹性网络的代价函数 ：
 
-![image](../images/linear/elastic_net.png)
+![](../images/linear/elastic_net.png)
 
 ## 总结
 

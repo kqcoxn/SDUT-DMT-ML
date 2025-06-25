@@ -21,7 +21,7 @@
 
 其是在整个训练数据集上计算损失函数关于参数 θ 的梯度：
 
-![image](../images/linear/GD下降公式.png)
+![](../images/linear/GD下降公式.png)
 
 ## 随机梯度下降算法（SG）
 
@@ -31,7 +31,7 @@
 
 此过程简单，高效，通常可以较好地避免更新迭代收敛到局部最优解。其迭代形式为：
 
-![image](../images/linear/SG下降公式.png)
+![](../images/linear/SG下降公式.png)
 
 其中，$x_{(i)}$表示一条训练样本的特征值，$y_{(i)}$表示一条训练样本的标签值
 
@@ -47,7 +47,7 @@
 
 特别的，若 batch_size=1，则变成了 SG；若 batch_size=n，则变成了 FG.其迭代形式为
 
-![image](../images/linear/mini-batch下降公式.png)
+![](../images/linear/mini-batch下降公式.png)
 
 ## 随机平均梯度下降算法（SAG）
 

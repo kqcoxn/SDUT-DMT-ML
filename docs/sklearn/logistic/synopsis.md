@@ -29,7 +29,7 @@
 - 逻辑回归中，其输入值是什么
 - 如何判断逻辑回归的输出
 
-![image](../images/logistic/逻辑回归输入.png)
+![](../images/logistic/逻辑回归输入.png)
 
 逻辑回归的输入就是一个线性回归的结果。
 
@@ -55,7 +55,7 @@ sigmoid 函数的特点是：
 
 他们的图像一般是这样的：
 
-![image](../images/logistic/sigmoid图像.png)
+![](../images/logistic/sigmoid图像.png)
 
 当 sigmoid 函数进行判断时，我们通常把回归的结果输入到 sigmoid 函数当中，并输出[0, 1]区间中的一个概率值，默认为 0.5 为阈值
 
@@ -71,7 +71,7 @@ sigmoid 函数的特点是：
 
 我们来看下图(下图中，设置阈值为 0.6)：
 
-![image](../images/logistic/逻辑回归运算过程.png)
+![](../images/logistic/逻辑回归运算过程.png)
 
 那么如何去衡量逻辑回归的预测结果与真实结果的差异呢？
 
@@ -83,13 +83,13 @@ sigmoid 函数的特点是：
 
 分开类别：
 
-![image](../images/logistic/单个对数似然损失.png)
+![](../images/logistic/单个对数似然损失.png)
 
 其中 $y$ 为真实值，$h_θ(x)$ 为预测值。
 
 怎么理解单个的式子呢？这个要根据 log 的函数图像来理解：
 
-![image](../images/logistic/log图像.png)
+![](../images/logistic/log图像.png)
 
 无论何时，我们都希望损失函数值越小越好
 
@@ -100,11 +100,11 @@ sigmoid 函数的特点是：
 
 在实际运用时，为了保证其良好的数学特性，我们通常使用**交叉熵损失**来代替对数似然损失：
 
-![image](../images/logistic/完整对数似然损失.png)
+![](../images/logistic/完整对数似然损失.png)
 
 看着很复杂，其实就是对两个类别的概率值进行交叉计算，我们带入上面那个例子来计算一遍，就能理解意义了：
 
-![image](../images/logistic/损失计算过程.png)
+![](../images/logistic/损失计算过程.png)
 
 我们已经知道，log(P), P 值越大，结果越小，所以我们可以对着这个损失的式子去分析
 

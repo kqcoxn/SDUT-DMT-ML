@@ -10,7 +10,7 @@
 
 所以对于“倾斜数据集”，就需要使用不同的误差指标，一对常见的误差指标是使用“混淆矩阵(confusion matrix)”计算的“准确率(precision)”和“召回率(recall)”：
 
-![image](../images/skills/倾斜数据集的误差衡量标准——准确率、召回率.png)
+![](../images/skills/倾斜数据集的误差衡量标准——准确率、召回率.png)
 
 其中：
 
@@ -30,4 +30,4 @@
 
 如果想同时考虑两个指标，方便自动调整阈值，可以使用“F1 score”。“F1 score”是“准确率”和“召回率”的调和平均数，越大越好：
 
-![image](../images/skills/使用F1-score挑选阈值.png)
+![](../images/skills/使用F1-score挑选阈值.png)

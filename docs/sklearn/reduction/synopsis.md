@@ -8,7 +8,7 @@
 
 1.**降低随机变量的个数**
 
-![image](../images/reduction/降维.png)
+![](../images/reduction/降维.png)
 
 2.**提取相关特征**(correlated feature)
 

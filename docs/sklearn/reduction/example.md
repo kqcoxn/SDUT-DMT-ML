@@ -4,7 +4,7 @@
 
 ## 案例背景
 
-![image](../images/reduction/instacart.png)
+![](../images/reduction/instacart.png)
 
 数据如下：
 
@@ -19,9 +19,9 @@
 
 需求：
 
-![image](../images/reduction/instacart效果.png)
+![](../images/reduction/instacart效果.png)
 
-![image](../images/reduction/instacartPCA结果.png)
+![](../images/reduction/instacartPCA结果.png)
 
 ## 分析
 

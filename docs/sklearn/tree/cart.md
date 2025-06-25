@@ -4,7 +4,7 @@
 
 先看下图：
 
-![image](../images/tree/cart.png)
+![](../images/tree/cart.png)
 
 图中：
 

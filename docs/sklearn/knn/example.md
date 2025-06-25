@@ -6,11 +6,11 @@
 
 ris 数据集是常用的分类实验数据集，由 Fisher, 1936 收集整理。Iris 也称鸢尾花卉数据集，是一类多重变量分析的数据集。关于数据集的具体介绍：
 
-![image](../images/knn/鸢尾花数据集使用.png)
+![](../images/knn/鸢尾花数据集使用.png)
 
-![image](../images/knn/iris数据集介绍.png)
+![](../images/knn/iris数据集介绍.png)
 
-![image](../images/knn/鸢尾花数据分类展示.png)
+![](../images/knn/鸢尾花数据分类展示.png)
 
 ## 步骤分析
 

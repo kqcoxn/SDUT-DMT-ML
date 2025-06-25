@@ -45,4 +45,4 @@ Ridge 方法相当于 SGDRegressor(penalty='l2', loss="squared_loss")，只不�
 - 正则化力度越大，权重系数会越小
 - 正则化力度越小，权重系数会越大
 
-![image](../images/linear/正则化力度.png)
+![](../images/linear/正则化力度.png)

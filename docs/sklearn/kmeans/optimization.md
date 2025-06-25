@@ -18,7 +18,7 @@
 
 ## Canopy 算法配合初始聚类
 
-![image](../images/kmeans/canopy.png)
+![](../images/kmeans/canopy.png)
 
 **优点**：
 
@@ -32,21 +32,21 @@
 
 ## K-means++
 
-![image](../images/kmeans/kmeans++.png)
+![](../images/kmeans/kmeans++.png)
 
 其中：
 
-![image](../images/kmeans/k-means++算法推导.png)
+![](../images/kmeans/k-means++算法推导.png)
 
 为方便后面表示，把其记为 A
 
-![image](../images/kmeans/kmeans++4.png)
+![](../images/kmeans/kmeans++4.png)
 
 kmeans++目的，让选择的质心尽可能的分散
 
 如下图中，如果第一个质心选择在圆心，那么最优可能选择到的下一个点在 P(A)这个区域（根据颜色进行划分）
 
-![image](../images/kmeans/kmeans++1.png)
+![](../images/kmeans/kmeans++1.png)
 
 ## 二分 k-means
 
@@ -57,7 +57,7 @@ kmeans++目的，让选择的质心尽可能的分散
 3. 选择能最大限度降低聚类代价函数（也就是误差平方和）的簇划分为两个簇。
 4. 以此进行下去，直到簇的数目等于用户给定的数目 k 为止。
 
-![image](../images/kmeans/half_of_kmeans.png)
+![](../images/kmeans/half_of_kmeans.png)
 
 隐含的一个原则：
 
@@ -72,7 +72,7 @@ K-medoids 和 K-means 是有区别的，不一样的地方在于中心点的选�
 - K-means 中，将中心点取为当前 cluster 中所有数据点的平均值，对异常点很敏感!
 - K-medoids 中，将从当前 cluster 中选取到其他所有（当前 cluster 中的）点的距离之和最小的点作为中心点。
 
-![image](../images/kmeans/k-medoids.png)
+![](../images/kmeans/k-medoids.png)
 
 算法流程：
 
@@ -88,7 +88,7 @@ k-medoids 对噪声鲁棒性好。
 
 kernel k-means 实际上，就是将每个样本进行一个投射到高维空间的处理，然后再将处理后的数据使用普通的 k-means 算法思想进行聚类。
 
-![image](../images/kmeans/kernel_kmeans.png)
+![](../images/kmeans/kernel_kmeans.png)
 
 ## ISODATA
 

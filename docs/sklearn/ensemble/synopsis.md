@@ -21,6 +21,6 @@
 - 任务一：如何优化训练数据 —> 主要用于解决欠拟合问题
 - 任务二：如何提升泛化性能 —> 主要用于解决过拟合问题
 
-![image](../images/ensemble/ensemble3.png)
+![](../images/ensemble/ensemble3.png)
 
 只要单分类器的表现不太差，集成学习的结果总是要好于单分类器的

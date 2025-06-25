@@ -6,11 +6,11 @@
 
 以下三个例子，都是线性不可区分的，即无法用一条直线将两类样本点区分开：
 
-![image](../images/svm/linear1.png)
+![](../images/svm/linear1.png)
 
 而刚才的例子就是线性可区分的：
 
-![image](../images/svm/svm2.png)
+![](../images/svm/svm2.png)
 
 ## 解决线性不可分
 
@@ -21,11 +21,11 @@
 1. 利用一个非线性的映射把原数据集中的向量点转化到一个更高维度的空间中（比如下图将二维空间中的点映射到三维空间）
 2. 在这个高维度的空间中找一个线性的超平面来根据线性可分的情况处理
 
-![image](../images/svm/linear2.jpg)
+![](../images/svm/linear2.jpg)
 
 比如想要将红点和蓝点变成线性可分的，那么就将映射$y=x$变成映射 $y=x^2$，这样就线性可分了。
 
-![image](../images/svm/linear3.png)
+![](../images/svm/linear3.png)
 
 这里有一个可视化演示的[视频](https://www.youtube.com/watch?v=3liCbRZPrZA)
 

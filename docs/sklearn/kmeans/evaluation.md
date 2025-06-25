@@ -6,29 +6,29 @@
 
 非常直白，例如下图：
 
-![image](../images/kmeans/sse1.png)
+![](../images/kmeans/sse1.png)
 
 在 k-means 中：
 
-![image](../images/kmeans/sse2.png)
+![](../images/kmeans/sse2.png)
 
-![image](../images/kmeans/sse3.png)
+![](../images/kmeans/sse3.png)
 
 公式各部分内容：
 
-![image](../images/kmeans/sse4.png)
+![](../images/kmeans/sse4.png)
 
 SSE 图最终的结果是对图松散度的衡量，随着聚类迭代其值会越来越小，直到最后趋于稳定：
 
-![image](../images/kmeans/sse5.png)
+![](../images/kmeans/sse5.png)
 
 如果质心的初始值选择不好,SSE 只会达到一个不怎么好的局部最优解：
 
-![image](../images/kmeans/sse6.png)
+![](../images/kmeans/sse6.png)
 
 ## “肘”方法 (Elbow method) — 确定 K 值
 
-![image](../images/kmeans/elbow_method.png)
+![](../images/kmeans/elbow_method.png)
 
 1. 对于 n 个点的数据集，迭代计算 k from 1 to n，每次聚类完成后计算每个点到其所属的簇中心的距离的平方和；
 2. 平方和是会逐渐变小的，直到 k==n 时平方和为 0，因为每个点都是它所在的簇中心本身。
@@ -40,11 +40,11 @@ SSE 图最终的结果是对图松散度的衡量，随着聚类迭代其值会�
 
 结合了聚类的凝聚度（Cohesion）和分离度（Separation），用于评估聚类的效果：
 
-![image](../images/kmeans/sc.png)
+![](../images/kmeans/sc.png)
 
 其目的在于使内部距离最小化，外部距离最大化
 
-![image](../images/kmeans/sc1.png)
+![](../images/kmeans/sc1.png)
 
 求出所有样本的轮廓系数后再求平均值就得到了平均轮廓系数。
 
@@ -58,7 +58,7 @@ SSE 图最终的结果是对图松散度的衡量，随着聚类迭代其值会�
 
 这样的 Calinski-Harabasz 分数 s 会高，分数 s 高则聚类效果越好。
 
-![image](../images/kmeans/ch1.png)
+![](../images/kmeans/ch1.png)
 
 m 为训练集样本数，k 为类别数。
 

@@ -4,7 +4,7 @@
 
 数据中包含冗余或无关变量（或称特征、属性、指标等），旨在从原有特征中找出主要特征。
 
-![image](../images/reduction/鸟类特征选择.png)
+![](../images/reduction/鸟类特征选择.png)
 
 ## 方法
 
@@ -45,7 +45,7 @@ sklearn.feature_selection.VarianceThreshold(threshold=0.0)
 
 反映变量之间相关关系密切程度的统计指标
 
-![image](../images/reduction/pearson_fromula.png)
+![](../images/reduction/pearson_fromula.png)
 
 相关系数的值介于–1 与+1 之间，即–1≤ r ≤+1。其性质如下：
 
@@ -59,7 +59,7 @@ sklearn.feature_selection.VarianceThreshold(threshold=0.0)
 
 反映变量之间相关关系密切程度的统计指标
 
-![image](../images/reduction/spearmanr1.png)
+![](../images/reduction/spearmanr1.png)
 
 斯皮尔曼相关系数表明 X (自变量) 和 Y (因变量)的相关方向。 如果当 X 增加时， Y 趋向于增加, 斯皮尔曼相关系数则为正
 

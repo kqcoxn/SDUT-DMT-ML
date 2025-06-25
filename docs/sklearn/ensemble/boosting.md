@@ -12,35 +12,35 @@ boosting 是一种集成学习方法，它通过串行训练一系列弱学习�
 
 1.训练第一个学习器
 
-![image](../images/ensemble/boosting2.png)
+![](../images/ensemble/boosting2.png)
 
 2.调整数据分布
 
-![image](../images/ensemble/boosting3.png)
+![](../images/ensemble/boosting3.png)
 
 3.训练第二个学习器
 
-![image](../images/ensemble/boostin4.png)
+![](../images/ensemble/boostin4.png)
 
 4.再次调整数据分布
 
-![image](../images/ensemble/boosting5.png)
+![](../images/ensemble/boosting5.png)
 
 5.依次训练学习器，调整数据分布
 
-![image](../images/ensemble/boosting6.png)
+![](../images/ensemble/boosting6.png)
 
 我们再来看一下整体过程：
 
-![image](../images/ensemble/boosting7.png)
+![](../images/ensemble/boosting7.png)
 
 那么如何如何确认投票权重？如何调整数据分布呢？
 
-![image](../images/ensemble/boosting8.png)
+![](../images/ensemble/boosting8.png)
 
 这就是经典的 Adaboost 算法。
 
-![image](../images/ensemble/boosting10.png)
+![](../images/ensemble/boosting10.png)
 
 ## \[选读\]GBDT
 
@@ -50,7 +50,7 @@ GBDT = 梯度下降 + Boosting + 决策树
 
 GBDT 的执行流程如下：
 
-![image](../images/ensemble/gbdt4.png)
+![](../images/ensemble/gbdt4.png)
 
 如果上式中的 $h_i(x)$ 为决策树模型，则上式就变为:
 

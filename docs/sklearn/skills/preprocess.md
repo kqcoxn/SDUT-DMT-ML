@@ -6,7 +6,7 @@
 
 通过一些**转换函数**将特征数据转换成**更加适合算法模型**的特征数据过程
 
-![image](../images/skills/特征预处理图.png)
+![](../images/skills/特征预处理图.png)
 
 为什么我们要进行特征预处理？
 
@@ -14,7 +14,7 @@
 
 举例：约会对象数据
 
-![image](../images/skills/约会对象数据.png)
+![](../images/skills/约会对象数据.png)
 
 最常见的预处理方式有归一化与标准化
 
@@ -22,13 +22,13 @@
 
 通过对原始数据进行变换把数据映射到(默认为\[0, 1\])之间，其数学公式如下：
 
-![image](../images/skills/归一化公式.png)
+![](../images/skills/归一化公式.png)
 
 作用于每一列，max 为一列的最大值，min 为一列的最小值,那么 X’’为最终结果，mx，mi 分别为指定区间值默认 mx 为 1,mi 为 0
 
 那么怎么理解这个过程呢？我们通过一个例子：
 
-![image](../images/skills/归一化计算过程.png)
+![](../images/skills/归一化计算过程.png)
 
 sklearn 为我们封装好了归一化的函数，我们只需要调用即可：
 
@@ -42,7 +42,7 @@ sklearn.preprocessing.MinMaxScaler(feature_range=(0, 1))
 
 通过对原始数据进行变换把数据变换到均值为 0,标准差为 1 范围内，其数学公式如下：
 
-![image](../images/skills/标准化公式.png)
+![](../images/skills/标准化公式.png)
 
 作用于每一列，mean 为平均值，σ 为标准差
 

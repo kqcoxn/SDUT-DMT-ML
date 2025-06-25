@@ -35,11 +35,11 @@ sklearn.cluster.KMeans(n_clusters=8, init='k-means++', max_iter=300, n_init=10,a
 
 随机创建不同二维数据集作为训练集，并结合 k-means 算法将其聚类，你可以尝试分别聚类不同数量的簇，并观察聚类效果：
 
-![image](../images/kmeans/cluser_demo1.png)
+![](../images/kmeans/cluser_demo1.png)
 
 聚类参数 n_cluster 传值不同，得到的聚类结果不同：
 
-![image](../images/kmeans/cluster_demo2.png)
+![](../images/kmeans/cluster_demo2.png)
 
 代码如下：
 

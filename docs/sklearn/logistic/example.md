@@ -4,7 +4,7 @@
 
 ## 背景介绍
 
-![image](../images/logistic/癌症数据.png)
+![](../images/logistic/癌症数据.png)
 
 数据地址：https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data
 

@@ -6,20 +6,20 @@
 
 在分类任务下，预测结果(Predicted Condition)与正确标记(True Condition)之间存在四种不同的组合，构成混淆矩阵(适用于多分类)
 
-![image](../images/logistic/混淆矩阵.png)
+![](../images/logistic/混淆矩阵.png)
 
 通过混淆矩阵，我们可以计算精确率(Precision)和召回率(Recall)：
 
 - 精确率：预测结果为正例样本中真实为正例的比例（了解）
-  ![image](../images/logistic/confusion_matrix1.png)
+  ![](../images/logistic/confusion_matrix1.png)
 - 召回率：真实为正例的样本中预测结果为正例的比例（查得全，对正样本的区分能力）
-  ![image](../images/logistic/confusion_matrix2.png)
+  ![](../images/logistic/confusion_matrix2.png)
 
 ### F1-score
 
 还有其他的评估标准，F1-score，反映了模型的稳健型，其定义如下：
 
-![image](../images/logistic/f1_score.png)
+![](../images/logistic/f1_score.png)
 
 ### 分类评估报告 api
 
@@ -49,7 +49,7 @@ sklearn.metrics.classification_report(y_true, y_pred, labels=[], target_names=No
 
 ROC 曲线的横轴就是 `FPRate`，纵轴就是 `TPRate`，当二者相等时，表示的意义则是：对于不论真实类别是 `1` 还是 `0` 的样本，分类器预测为 `1` 的概率是相等的，此时 `AUC` 为 `0.5`
 
-![image](../images/logistic/ROC.png)
+![](../images/logistic/ROC.png)
 
 ### AUC 指标
 

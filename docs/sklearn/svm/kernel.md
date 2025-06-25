@@ -6,11 +6,11 @@
 
 以下核函数和非线性映射函数的内积等同，但核函数 K 的运算量要远少于求内积：
 
-![image](../images/svm/kernal1.png)
+![](../images/svm/kernal1.png)
 
 ## 常用的核函数（kernel functions）
 
-![image](../images/svm/kernal2.png)
+![](../images/svm/kernal2.png)
 
 ## 如何选择使用哪个 kernel ？
 
