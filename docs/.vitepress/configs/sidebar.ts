@@ -292,17 +292,24 @@ const sidebar = {
       items: [{ text: "简介", link: "/class/index" }],
     },
     {
-      text: "数媒暑期知识补充课程(2024)",
+      text: "数媒暑期知识补充课程(2025)",
       items: [
-        { text: "简介", link: "/class/SCForDMT2024/synopsis" },
-        { text: "Python基础", link: "/class/SCForDMT2024/python" },
-        { text: "数据库相关知识", link: "/class/SCForDMT2024/db" },
-        { text: "机器学习基础知识", link: "/class/SCForDMT2024/ml" },
-        { text: "课后习题", link: "/class/SCForDMT2024/homework" },
-        {
-          text: "📙在线Jupyter(笔记/代码)",
-          link: "https://www.kaggle.com/code/kqcoxn/20240802-03-sdut-dmt-ml",
-        },
+        { text: "简介", link: "/class/SCForDMT2025/" },
+        { text: "从C到Python入门", link: "/class/SCForDMT2025/start" },
+        { text: "从C#到面向对象", link: "/class/SCForDMT2025/oop" },
+        { text: "是Python魔法！", link: "/class/SCForDMT2025/pymagic" },
+        { text: "案例实战与常用模块", link: "/class/SCForDMT2025/case" },
+        { text: "机器学习基础模块", link: "/sklearn/python/numpy" },
+        { text: "从Excel到数据库", link: "/class/SCForDMT2025/database" },
+      ],
+    },
+    {
+      text: "云平台环境与深度学习框架(2024)",
+      items: [
+        { text: "简介", link: "/class/pytorchIL2024/" },
+        { text: "云平台使用", link: "/class/pytorchIL2024/cloud" },
+        { text: "深度学习框架说明", link: "/class/pytorchIL2024/framework" },
+        { text: "案例说明", link: "/class/pytorchIL2024/cases" },
       ],
     },
     {
@@ -319,12 +326,17 @@ const sidebar = {
       ],
     },
     {
-      text: "云平台环境与深度学习框架(2024)",
+      text: "数媒暑期知识补充课程(2024)",
       items: [
-        { text: "简介", link: "/class/pytorchIL2024/" },
-        { text: "云平台使用", link: "/class/pytorchIL2024/cloud" },
-        { text: "深度学习框架说明", link: "/class/pytorchIL2024/framework" },
-        { text: "案例说明", link: "/class/pytorchIL2024/cases" },
+        { text: "简介", link: "/class/SCForDMT2024/synopsis" },
+        { text: "Python基础", link: "/class/SCForDMT2024/python" },
+        { text: "数据库相关知识", link: "/class/SCForDMT2024/db" },
+        { text: "机器学习基础知识", link: "/class/SCForDMT2024/ml" },
+        { text: "课后习题", link: "/class/SCForDMT2024/homework" },
+        {
+          text: "📙在线Jupyter(笔记/代码)",
+          link: "https://www.kaggle.com/code/kqcoxn/20240802-03-sdut-dmt-ml",
+        },
       ],
     },
   ],
