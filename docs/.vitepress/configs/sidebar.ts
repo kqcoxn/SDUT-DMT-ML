@@ -289,7 +289,16 @@ const sidebar = {
   "/class/": [
     {
       text: "概述",
-      items: [{ text: "简介", link: "/class/index" }],
+      items: [{ text: "简介", link: "/class/" }],
+    },
+    {
+      text: "数据23级文档（2025）",
+      items: [
+        {
+          text: "sklearn教学",
+          link: "/class/2025BD23/sklearnIL/",
+        },
+      ],
     },
     {
       text: "数媒暑期知识补充课程(2025)",
