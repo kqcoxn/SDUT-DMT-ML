@@ -109,6 +109,7 @@ sklearn.neighbors.KNeighborsClassifier(n_neighbors=3, weights='uniform', algorit
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -135,6 +136,12 @@ target_names = data.target_names
 print("特征名称：", feature_names)
 print("目标类别：", target_names)
 print("数据集大小：", X.shape)
+
+# 创建DataFrame
+df = pd.DataFrame(X, columns=feature_names)
+df['species'] = y
+df['species'] = df['species'].map({0: 'setosa', 1: 'versicolor', 2: 'virginica'})
+print(df.head())
 ```
 
 输出结果：
@@ -143,6 +150,12 @@ print("数据集大小：", X.shape)
 特征名称： ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
 目标类别： ['setosa' 'versicolor' 'virginica']
 数据集大小： (150, 4)
+   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm) species
+0                5.1               3.5                1.4               0.2  setosa
+1                4.9               3.0                1.4               0.2  setosa
+2                4.7               3.2                1.3               0.2  setosa
+3                4.6               3.1                1.5               0.2  setosa
+4                5.0               3.6                1.4               0.2  setosa
 ```
 
 分析：
@@ -157,13 +170,6 @@ print("数据集大小：", X.shape)
 我们通过绘制散点图矩阵（Pair Plot）来初步了解各个特征之间的关系。
 
 ```python
-import pandas as pd
-
-# 创建DataFrame
-df = pd.DataFrame(X, columns=feature_names)
-df['species'] = y
-df['species'] = df['species'].map({0: 'setosa', 1: 'versicolor', 2: 'virginica'})
-
 # 绘制散点图矩阵
 sns.pairplot(df, hue='species', markers=["o", "s", "D"])
 plt.suptitle("鸢尾花数据集散点图矩阵", y=1.02)
@@ -183,7 +189,7 @@ plt.show()
 - **数据转换**（Data Transformation）：数据转换是指对数据进行变换，以便更好地适应机器学习算法。
 - **数据集成**（Data Integration）：数据集成是指将不同来源的数据进行整合，以便更好地训练模型。
 
-在进行机器学习模型训练之前，通常需要对数据进行预处理。KNN算法对特征的尺度非常敏感，因此标准化（Standardization）是必不可少的步骤。
+在进行机器学习模型训练之前，通常需要对数据进行预处理。KNN算法对特征的尺度非常敏感，因此 **标准化**（Standardization）是必不可少的步骤。
 
 ```python
 # 切分数据集为训练集和测试集
@@ -355,7 +361,7 @@ plot_decision_boundary(knn_pca, X_test_pca, y_test, "KNN决策边界（测试集
 
 ![决策边界可视化2](images/决策边界可视化2.png)
 
-**解释**：图中展示了KNN模型在降维后的训练集和测试集上的决策边界。不同颜色区域代表不同的分类类别，散点则是实际的数据点。可以看到，模型成功地区分了三类鸢尾花，决策边界清晰。
+**解释**：图中展示了KNN模型在降维后的训练集和测试集上的决策边界。不同颜色区域代表不同的分类类别，散点则是实际的数据点。
 
 #### 混淆矩阵可视化
 
@@ -375,7 +381,7 @@ plt.show()
 
 ![混淆矩阵可视化](images/混淆矩阵可视化.png)
 
-**解释**：图中显示了模型在各个类别上的预测情况。对角线上的数值表示正确预测的样本数量，而非对角线上的数值表示误分类的样本数量。在本例中，所有类别的预测都达到了100%的准确率。
+**解释**：图中显示了模型在各个类别上的预测情况。对角线上的数值表示正确预测的样本数量，而非对角线上的数值表示误分类的样本数量。
 
 ### 完整代码
 
@@ -387,6 +393,7 @@ plt.show()
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -407,12 +414,11 @@ print("特征名称：", feature_names)
 print("目标类别：", target_names)
 print("数据集大小：", X.shape)
 
-import pandas as pd
-
 # 创建DataFrame
 df = pd.DataFrame(X, columns=feature_names)
 df['species'] = y
 df['species'] = df['species'].map({0: 'setosa', 1: 'versicolor', 2: 'virginica'})
+print(df.head())
 
 # 绘制散点图矩阵
 sns.pairplot(df, hue='species', markers=["o", "s", "D"])

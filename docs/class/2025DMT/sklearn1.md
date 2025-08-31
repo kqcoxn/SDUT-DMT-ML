@@ -53,7 +53,7 @@ python --version
 
 ### 安装 Anaconda
 
-双击下载好的安装包，点击 `Next`，点击 `I Agree`，选择 `Just Me`，自定义安装位置然后 `Next`。
+双击下载好的安装包，点击 `Next`，点击 `I Agree`，选择 `Just Me`，自定义安装位置然后 `Next`（ **注意不能有中文路径！** ）。
 
 ![安装Anaconda1](images/安装Anaconda1.png)
 
@@ -155,6 +155,96 @@ Anaconda 自带了一些常用的库，如 numpy、pandas、jupyter、matplotlib
 conda activate 环境名称
 ```
 
+## VSCode 中激活 Conda 环境报错
+
+**问题**：在 VSCode 中使用 conda activate 激活虚拟环境时报错，提示如下内容：
+
+```shell
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+```
+
+**原因**：提示内容已经给出原因，当前使用的 shell 没有配置好 conda activate，需要运行 conda init 初始化 shell
+
+### 查看虚拟环境
+
+在本地cmd中输入以下命令查看有哪些虚拟环境：
+
+
+```shell
+conda env list
+```
+
+![查看虚拟环境](images/查看虚拟环境.png)
+
+我们也可以自己创建虚拟环境，通过cmd输入以下命令：
+
+```shell
+conda create -n [虚拟环境名称] python=[python版本]
+```
+
+例：conda create -n python3.9 python=3.9
+
+回车之后便可以创建成功，同时也可用上面的查看命令查看自己新创建的虚拟环境。
+
+### VSCode 终端初始化 Conda
+
+在VSCode 终端 `powershell` 中执行 `conda init` 命令后 **重启** VSCode。
+
+```shell
+conda init
+```
+
+此时若有标红的错误信息出现，不用管，直接忽略错误信息进行下一步。
+
+### Windows PowerShell 配置
+
+打开开始界面，直接搜索关键字 `powershell` ，打开第一个 `Windows PowerShell` ，注意要 **以管理员身份运行** 打开。
+
+![WindowsPowerShell配置1](images/WindowsPowerShell配置1.png)
+
+打开后输入以下命令，中途要输入y，回车确定执行命令。
+
+```shell
+set-ExecutionPolicy RemoteSigned
+```
+
+![WindowsPowerShell配置2](images/WindowsPowerShell配置2.png)
+
+### 新建 powershell 重新激活
+
+重启VSCode，点击 **删除** 按钮，删除当前这个 `powershell` 。
+
+然后在上方工具栏中点击 **终端** → 点击 **新建终端** ，重新再新建一个 `Vscode terminal powershell` 。
+
+![新建powershell重新激活1](images/新建powershell重新激活1.png)
+
+在新建的 `powershell` 终端中输入激活命令（虚拟环境名称是在Anaconda安装目录文件夹下的环境名称）。
+
+```shell
+conda activate [虚拟环境名称]
+```
+
+例：我的虚拟环境名称是base，则命令为 `conda activate base` 。
+
+出现以下结果，说明此时虚拟环境打开了，此时就能发现终于在VSCode上正确切换到了Conda创建的虚拟环境了。
+
+![新建powershell重新激活2](images/新建powershell重新激活2.png)
+
 ## sklearn运行环境
 
 至此，我们已经在本地配置好了 sklearn 的运行环境，可以用一个简单的例子来测试一下。
@@ -162,95 +252,145 @@ conda activate 环境名称
 新建 Python 文件，输入以下代码并运行：
 
 ```python
+# 导入必要的库
+#coding utf-8
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
-import pandas as pd
-import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+# 设置中文字体为SimHei（黑体），确保系统中有该字体
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 如果没有SimHei，可以换成其他中文字体，如'Microsoft YaHei'
+plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
+# 解决sklearn中K近邻算法与未来SciPy版本兼容性的问题，忽略警告
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="sklearn.neighbors._classification")
 
-# 导入数据集
-iris = load_iris()
-# print(iris)
-iris_df = pd.DataFrame(iris.data, columns=iris.feature_names)
-iris_df['species'] = iris.target
-print(iris_df.head())
+# 加载鸢尾花数据集（Iris Dataset）
+data = load_iris()
+X = data.data
+y = data.target
+feature_names = data.feature_names
+target_names = data.target_names
 
-# 可视化数据集
-plt.figure(figsize=(10, 6))
-plt.xlabel('sepal length (cm)')
-plt.ylabel('sepal width (cm)')
-plt.scatter(iris_df[iris_df['species'] == 0]['sepal length (cm)'], iris_df[iris_df['species'] == 0]['sepal width (cm)'], color='red', label='Setosa')
-plt.scatter(iris_df[iris_df['species'] == 1]['sepal length (cm)'], iris_df[iris_df['species'] == 1]['sepal width (cm)'], color='green', label='Versicolor')
-plt.scatter(iris_df[iris_df['species'] == 2]['sepal length (cm)'], iris_df[iris_df['species'] == 2]['sepal width (cm)'], color='blue', label='Virginica')
-plt.legend()
-plt.title('Iris Dataset - Sepal Length vs Width')
-plt.show()
+print("特征名称：", feature_names)
+print("目标类别：", target_names)
+print("数据集大小：", X.shape)
 
-# 数据预处理
+# 创建DataFrame
+df = pd.DataFrame(X, columns=feature_names)
+df['species'] = y
+df['species'] = df['species'].map({0: 'setosa', 1: 'versicolor', 2: 'virginica'})
+print(df.head())
+
+# 切分数据集为训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+# 特征标准化
 scaler = StandardScaler()
-x = scaler.fit_transform(iris.data)
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
-# 对比预处理效果
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-plt.hist(iris.data[:, 0], bins=20, color='blue', alpha=0.7)
-plt.title('Before Scaling')
-plt.subplot(1, 2, 2)
-plt.hist(x[:, 0], bins=20, color='green', alpha=0.7)
-plt.title('After Scaling')
-plt.show()
+print("训练集特征均值：", X_train.mean(axis=0))
+print("训练集特征标准差：", X_train.std(axis=0))
 
-# 切分数据集
-x_train, x_test, y_train, y_test = train_test_split(x, iris.target, test_size=0.3, random_state=42)
-print(f"Training set size: {x_train.shape}, {y_train.shape}")
-print(f"Testing set size: {x_test.shape}, {y_test.shape}")
+
+# 创建KNN模型，选择K=3
+knn = KNeighborsClassifier(n_neighbors=3)
 
 # 训练模型
-accuracies = []
-k_values = range(1, 11)
-for k in k_values:
-    knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(x_train, y_train)
-    y_pred = knn.predict(x_test)
-    accuracies.append(accuracy_score(y_test, y_pred))  # 模型的准确率
-print(accuracies)
+knn.fit(X_train, y_train)
 
-# 绘制准确率与k值的关系图
-plt.figure(figsize=(10, 6))
-plt.plot(k_values, accuracies, marker='o')
-plt.xlabel('K Value')
-plt.ylabel('Accuracy')
-plt.title('K Value vs. Accuracy')
-plt.grid()
-plt.show()
 
-# 确定模型
-knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(x_train, y_train)
-
-# 预测测试集
-y_pred = knn.predict(x_test)
-for i in range(5):
-    print(f"True label: {y_test[i]}, Predicted label: {y_pred[i]}")
+# 进行预测
+y_pred = knn.predict(X_test)
 
 # 计算准确率
-accurancy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accurancy:.2f}")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"模型准确率：{accuracy * 100:.2f}%")
 
-# 计算分类报告
-report = classification_report(y_test, y_pred)
-print(report)
+# 混淆矩阵
+conf_matrix = confusion_matrix(y_test, y_pred)
 
-# 计算混淆矩阵
-cm = confusion_matrix(y_test, y_pred)
-print(cm)
+# 分类报告
+class_report = classification_report(y_test, y_pred, target_names=target_names)
 
-# 绘制混淆矩阵热力图
-cm_display = ConfusionMatrixDisplay(cm, display_labels=iris.target_names)
-cm_display.plot(cmap=plt.cm.Blues)
-plt.title('Confusion Matrix')
+print("混淆矩阵：\n", conf_matrix)
+print("分类报告：\n", class_report)
+
+
+# 绘制特征的直方图
+df.hist(bins=15, figsize=(15, 10), layout=(2, 2), color='steelblue', edgecolor='black')
+plt.suptitle("鸢尾花数据集特征直方图", fontsize=16)
+plt.show()
+
+# 绘制特征的箱线图
+plt.figure(figsize=(15, 10))
+for idx, feature in enumerate(feature_names):
+    plt.subplot(2, 2, idx + 1)
+    sns.boxplot(x='species', y=feature, data=df)
+    plt.title(f"{feature} 的箱线图")
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
+
+
+
+from sklearn.decomposition import PCA
+from matplotlib.patches import Patch
+# 使用PCA将数据降到二维
+pca = PCA(n_components=2)
+
+X_train_pca = pca.fit_transform(X_train)
+X_test_pca = pca.transform(X_test)
+
+# 重新训练KNN模型在PCA降维后的数据上
+knn_pca = KNeighborsClassifier(n_neighbors=3)
+knn_pca.fit(X_train_pca, y_train)
+
+# # 绘制决策边界
+def plot_decision_boundary(model, X, y, title):
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    h = 0.02  # 网格步长
+
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+
+    plt.figure(figsize=(10, 6))
+    plt.contourf(xx, yy, Z, alpha=0.4, cmap='viridis')
+    scatter = plt.scatter(X[:, 0], X[:, 1], c=y, s=40, edgecolor='k', cmap='viridis')
+    plt.xlabel('主成分1')
+    plt.ylabel('主成分2')
+    plt.title(title)
+    
+    # 手动创建图例
+    unique_classes = np.unique(y)
+    colors = [scatter.cmap(scatter.norm(i)) for i in unique_classes]
+    legend_elements = [Patch(facecolor=colors[i], edgecolor='k', label=target_names[i]) for i in unique_classes]
+    plt.legend(handles=legend_elements, title="Species")
+    
+    plt.show()
+
+plot_decision_boundary(knn_pca, X_train_pca, y_train, "KNN决策边界（训练集）")
+plot_decision_boundary(knn_pca, X_test_pca, y_test, "KNN决策边界（测试集）")
+
+# 绘制混淆矩阵热图
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues',
+            xticklabels=target_names,
+            yticklabels=target_names)
+plt.xlabel('预测类别')
+plt.ylabel('真实类别')
+plt.title('混淆矩阵')
 plt.show()
 ```
 
