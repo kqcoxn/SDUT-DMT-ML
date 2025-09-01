@@ -1,4 +1,4 @@
-# sklearn教学
+# sklearn 教学
 
 > sklearn[官方文档](https://scikit-learn.org/stable/index.html)参考
 
@@ -102,7 +102,7 @@ sklearn.neighbors.KNeighborsClassifier(n_neighbors=3, weights='uniform', algorit
 
 #### 导入必要的库
 
-首先，我们需要导入进行数据处理、模型训练和可视化所需的Python库。
+首先，我们需要导入进行数据处理、模型训练和可视化所需的 Python 库。
 
 ```python
 # 导入必要的库
@@ -123,7 +123,7 @@ sns.set(style="whitegrid")
 
 #### 加载和探索数据集
 
-我们将使用Scikit-learn自带的鸢尾花数据集。首先，我们加载数据并了解其基本结构。
+我们将使用 Scikit-learn 自带的鸢尾花数据集。首先，我们加载数据并了解其基本结构。
 
 ```python
 # 加载鸢尾花数据集（Iris Dataset）
@@ -189,7 +189,7 @@ plt.show()
 - **数据转换**（Data Transformation）：数据转换是指对数据进行变换，以便更好地适应机器学习算法。
 - **数据集成**（Data Integration）：数据集成是指将不同来源的数据进行整合，以便更好地训练模型。
 
-在进行机器学习模型训练之前，通常需要对数据进行预处理。KNN算法对特征的尺度非常敏感，因此 **标准化**（Standardization）是必不可少的步骤。
+在进行机器学习模型训练之前，通常需要对数据进行预处理。KNN 算法对特征的尺度非常敏感，因此 **标准化**（Standardization）是必不可少的步骤。
 
 ```python
 # 切分数据集为训练集和测试集
@@ -215,9 +215,9 @@ print("训练集特征标准差：", X_train.std(axis=0))
 
 **数据标准化** 使得数据分布变得更加均匀，更容易被模型识别。
 
-### 训练KNN模型
+### 训练 KNN 模型
 
-我们将使用KNN分类器进行模型训练。K值的选择对模型性能有重要影响，常用的方法是通过交叉验证选择最佳的K值。
+我们将使用 KNN 分类器进行模型训练。K 值的选择对模型性能有重要影响，常用的方法是通过交叉验证选择最佳的 K 值。
 
 ```python
 # 创建KNN模型，选择K=3
@@ -276,11 +276,11 @@ print("分类报告：\n", class_report)
 weighted avg       1.00      1.00      1.00        39
 ```
 
-从结果可以看出，KNN模型在测试集上的表现非常优异，达到了 97.78% 的准确率。
+从结果可以看出，KNN 模型在测试集上的表现非常优异，达到了 97.78% 的准确率。
 
 ### 模型可视化
 
-为了更直观地理解KNN模型的表现，我们将进行以下几种可视化：
+为了更直观地理解 KNN 模型的表现，我们将进行以下几种可视化：
 
 - **特征分布可视化**
 - **决策边界可视化**
@@ -344,13 +344,13 @@ def plot_decision_boundary(model, X, y, title):
     plt.xlabel('主成分1')
     plt.ylabel('主成分2')
     plt.title(title)
-    
+
     # 手动创建图例
     unique_classes = np.unique(y)
     colors = [scatter.cmap(scatter.norm(i)) for i in unique_classes]
     legend_elements = [Patch(facecolor=colors[i], edgecolor='k', label=target_names[i]) for i in unique_classes]
     plt.legend(handles=legend_elements, title="Species")
-    
+
     plt.show()
 
 plot_decision_boundary(knn_pca, X_train_pca, y_train, "KNN决策边界（训练集）")
@@ -361,7 +361,7 @@ plot_decision_boundary(knn_pca, X_test_pca, y_test, "KNN决策边界（测试集
 
 ![决策边界可视化2](images/决策边界可视化2.png)
 
-**解释**：图中展示了KNN模型在降维后的训练集和测试集上的决策边界。不同颜色区域代表不同的分类类别，散点则是实际的数据点。
+**解释**：图中展示了 KNN 模型在降维后的训练集和测试集上的决策边界。不同颜色区域代表不同的分类类别，散点则是实际的数据点。
 
 #### 混淆矩阵可视化
 
@@ -509,13 +509,13 @@ def plot_decision_boundary(model, X, y, title):
     plt.xlabel('主成分1')
     plt.ylabel('主成分2')
     plt.title(title)
-    
+
     # 手动创建图例
     unique_classes = np.unique(y)
     colors = [scatter.cmap(scatter.norm(i)) for i in unique_classes]
     legend_elements = [Patch(facecolor=colors[i], edgecolor='k', label=target_names[i]) for i in unique_classes]
     plt.legend(handles=legend_elements, title="Species")
-    
+
     plt.show()
 
 plot_decision_boundary(knn_pca, X_train_pca, y_train, "KNN决策边界（训练集）")
@@ -542,6 +542,6 @@ plt.show()
 
 - **数据预处理**：对数据进行标准化处理，确保模型训练的有效性。
 
-- **模型训练与评估**：训练KNN分类器，并通过准确率、混淆矩阵和分类报告评估模型性能。
+- **模型训练与评估**：训练 KNN 分类器，并通过准确率、混淆矩阵和分类报告评估模型性能。
 
-- **模型可视化**：通过PCA降维绘制决策边界，并可视化混淆矩阵，深入理解模型的分类效果。
+- **模型可视化**：通过 PCA 降维绘制决策边界，并可视化混淆矩阵，深入理解模型的分类效果。

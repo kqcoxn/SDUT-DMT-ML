@@ -4,7 +4,7 @@
 
 ## 关于 Anaconda
 
-Anaconda指的是一个开源的Python发行版本，其中包含了 conda（包管理和环境管理）、Python 等 180 多个科学包及其依赖项。
+Anaconda 指的是一个开源的 Python 发行版本，其中包含了 conda（包管理和环境管理）、Python 等 180 多个科学包及其依赖项。
 
 接下来我们开始安装 Anaconda
 
@@ -12,9 +12,9 @@ Anaconda指的是一个开源的Python发行版本，其中包含了 conda（包
 
 ### 卸载 Python
 
-Anaconda安装之前，应该先检查一下电脑是否安装Python：
+Anaconda 安装之前，应该先检查一下电脑是否安装 Python：
 
-- **情况一**：电脑没有安装 Python，或者安装的Python可以卸载；
+- **情况一**：电脑没有安装 Python，或者安装的 Python 可以卸载；
 - **情况二**：电脑已经安装 Python，并且想要保留它；
 
 _此文档仅就情况一进行，情况二的方法较为复杂，最好改为情况一_
@@ -22,10 +22,10 @@ _此文档仅就情况一进行，情况二的方法较为复杂，最好改为�
 #### 验证是否安装 Python
 
 打开命令提示窗口（按下 `Win+R` 打开运行框，输入 `cmd`），在窗口中输入
-   
+
 ```shell
 python --version
-```   
+```
 
 若出现了版本号，则说明已经安装了 Python，需要先卸载它。
 
@@ -49,7 +49,7 @@ python --version
 
 可以进入 [Anaconda 官网](https://www.anaconda.com/) 进行注册登录后下载，不过因为网络无法访问或者下载速度太慢的问题，更推荐从 [清华大学开源软件镜像站](https://repo.anaconda.com/archive/) 进行下载。
 
-选择22版 `Anaconda3-2022.10-Windows-x86_64.exe` 进行下载，下载后点击 exe 文件，便能够进入安装界面。
+选择 22 版 `Anaconda3-2022.10-Windows-x86_64.exe` 进行下载，下载后点击 exe 文件，便能够进入安装界面。
 
 ### 安装 Anaconda
 
@@ -71,7 +71,7 @@ python --version
 
 ### 配置环境变量
 
->  Anaconda 安装的过程中比较容易出错的环节就是环境变量的配置，所以在配置环境变量的时候要细心一些。
+> Anaconda 安装的过程中比较容易出错的环节就是环境变量的配置，所以在配置环境变量的时候要细心一些。
 
 `计算机`（右键）→ `属性` → `高级系统设置` →（点击）`环境变量`
 
@@ -112,7 +112,7 @@ python --version
 
 ![验证安装](images/验证安装.png)
 
-## 更改Conda源
+## 更改 Conda 源
 
 如果没有 VPN 工具，建议更改 Conda 源来加快下载包的速度。清华大学提供了 Anaconda 的镜像仓库，我们把源改为清华大学镜像源。
 
@@ -182,8 +182,7 @@ IMPORTANT: You may need to close and restart your shell after running 'conda ini
 
 ### 查看虚拟环境
 
-在本地cmd中输入以下命令查看有哪些虚拟环境：
-
+在本地 cmd 中输入以下命令查看有哪些虚拟环境：
 
 ```shell
 conda env list
@@ -191,7 +190,7 @@ conda env list
 
 ![查看虚拟环境](images/查看虚拟环境.png)
 
-我们也可以自己创建虚拟环境，通过cmd输入以下命令：
+我们也可以自己创建虚拟环境，通过 cmd 输入以下命令：
 
 ```shell
 conda create -n [虚拟环境名称] python=[python版本]
@@ -203,7 +202,7 @@ conda create -n [虚拟环境名称] python=[python版本]
 
 ### VSCode 终端初始化 Conda
 
-在VSCode 终端 `powershell` 中执行 `conda init` 命令后 **重启** VSCode。
+在 VSCode 终端 `powershell` 中执行 `conda init` 命令后 **重启** VSCode。
 
 ```shell
 conda init
@@ -217,7 +216,7 @@ conda init
 
 ![WindowsPowerShell配置1](images/WindowsPowerShell配置1.png)
 
-打开后输入以下命令，中途要输入y，回车确定执行命令。
+打开后输入以下命令，中途要输入 y，回车确定执行命令。
 
 ```shell
 set-ExecutionPolicy RemoteSigned
@@ -227,25 +226,25 @@ set-ExecutionPolicy RemoteSigned
 
 ### 新建 powershell 重新激活
 
-重启VSCode，点击 **删除** 按钮，删除当前这个 `powershell` 。
+重启 VSCode，点击 **删除** 按钮，删除当前这个 `powershell` 。
 
 然后在上方工具栏中点击 **终端** → 点击 **新建终端** ，重新再新建一个 `Vscode terminal powershell` 。
 
 ![新建powershell重新激活1](images/新建powershell重新激活1.png)
 
-在新建的 `powershell` 终端中输入激活命令（虚拟环境名称是在Anaconda安装目录文件夹下的环境名称）。
+在新建的 `powershell` 终端中输入激活命令（虚拟环境名称是在 Anaconda 安装目录文件夹下的环境名称）。
 
 ```shell
 conda activate [虚拟环境名称]
 ```
 
-例：我的虚拟环境名称是base，则命令为 `conda activate base` 。
+例：我的虚拟环境名称是 base，则命令为 `conda activate base` 。
 
-出现以下结果，说明此时虚拟环境打开了，此时就能发现终于在VSCode上正确切换到了Conda创建的虚拟环境了。
+出现以下结果，说明此时虚拟环境打开了，此时就能发现终于在 VSCode 上正确切换到了 Conda 创建的虚拟环境了。
 
 ![新建powershell重新激活2](images/新建powershell重新激活2.png)
 
-## sklearn运行环境
+## sklearn 运行环境
 
 至此，我们已经在本地配置好了 sklearn 的运行环境，可以用一个简单的例子来测试一下。
 
@@ -371,13 +370,13 @@ def plot_decision_boundary(model, X, y, title):
     plt.xlabel('主成分1')
     plt.ylabel('主成分2')
     plt.title(title)
-    
+
     # 手动创建图例
     unique_classes = np.unique(y)
     colors = [scatter.cmap(scatter.norm(i)) for i in unique_classes]
     legend_elements = [Patch(facecolor=colors[i], edgecolor='k', label=target_names[i]) for i in unique_classes]
     plt.legend(handles=legend_elements, title="Species")
-    
+
     plt.show()
 
 plot_decision_boundary(knn_pca, X_train_pca, y_train, "KNN决策边界（训练集）")
@@ -402,7 +401,7 @@ plt.show()
 
 Anaconda 中自带了 Jupyter notebook 与 Jupyterlab，可以方便地编写和运行 Python 代码。
 
-使用较新的 Jupyterlab 作为例子，打开 Anaconda Navigator，点击Jupyterlab 下面的 `launch` 按钮（如果没有请先点击 install），Anaconda 会自动在浏览器中打开 Jupyter 界面，关闭页面便会退出环境。
+使用较新的 Jupyterlab 作为例子，打开 Anaconda Navigator，点击 Jupyterlab 下面的 `launch` 按钮（如果没有请先点击 install），Anaconda 会自动在浏览器中打开 Jupyter 界面，关闭页面便会退出环境。
 
 ![Anaconda运行Jupyter](images/Anaconda运行Jupyter.png)
 
@@ -410,7 +409,7 @@ Anaconda 中自带了 Jupyter notebook 与 Jupyterlab，可以方便地编写和
 
 ### 使用 VSCode 运行 Jupyter 文件
 
-许多 VSCode  插件对 Jupyter 的运行都进行了支持，例如 Jupyter Extension for Visual Studio Code。
+许多 VSCode 插件对 Jupyter 的运行都进行了支持，例如 Jupyter Extension for Visual Studio Code。
 
 下载并安装插件，新建 `.ipynb` 文件，然后点击右上角的运行按钮，选择运行环境，选择 Anaconda 环境后使用即可。
 
