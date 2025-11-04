@@ -15,6 +15,14 @@ const sidebar = {
           text: "sklearn 教学",
           link: "/class/2025DMT/sklearn2",
         },
+        {
+          text: "AutoDL 云平台使用",
+          link: "/class/2025DMT/autodl1",
+        },
+        {
+          text: "深度学习框架与实践指南",
+          link: "/class/2025DMT/autodl2",
+        },
       ],
     },
     {
